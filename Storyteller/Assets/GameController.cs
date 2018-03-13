@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : Singleton<GameController> {
 
     [Header("Resources")]
-    private float inspiration = 100;
+    private float inspiration = 50;
     private float imagination = 0;
     [SerializeField]
     private float baseConversionSpeed;
@@ -15,6 +15,13 @@ public class GameController : Singleton<GameController> {
     [SerializeField]
     private float timeToReachMaxConversionSpeed;
     private float currentConversionTime = 0;
+    [SerializeField]
+    private float inspirationDecrementRate = 0.5f;
+
+    [SerializeField]
+    private float inspirationGainSpeed;
+    private float targetInspiration = 0;
+    private bool isIncrementingInspiration = false;
 
     [SerializeField]
     private float baseShakeIntensity;
@@ -35,7 +42,18 @@ public class GameController : Singleton<GameController> {
     private ObjectMovement storytellerMovement;
 	
 	private void Update () {
-		if (Input.GetKey(KeyCode.Space) && inspiration > 0) {
+
+        if (isIncrementingInspiration) {
+            inspiration = Mathf.MoveTowards(inspiration, targetInspiration, inspirationGainSpeed * Time.deltaTime);
+            if (inspiration == targetInspiration) {
+                isIncrementingInspiration = false;
+            }
+        }
+
+        inspiration -= inspirationDecrementRate * Time.deltaTime;
+
+
+        if (Input.GetKey(KeyCode.Space) && inspiration > 0) {
             currentConversionTime += Time.deltaTime;
             float percentCharge = Mathf.Clamp01(currentConversionTime / timeToReachMaxConversionSpeed);
             float currentConversionSpeed = baseConversionSpeed + (maxConversionSpeed - baseConversionSpeed) * percentCharge;
@@ -58,6 +76,11 @@ public class GameController : Singleton<GameController> {
         }
 
 	}
+
+    public void GainInspiration(float amount) {
+        targetInspiration = inspiration + amount;
+        isIncrementingInspiration = true;
+    }
 
     public void StopStorytellerMovement() {
         storytellerMovement.CanMove = false;

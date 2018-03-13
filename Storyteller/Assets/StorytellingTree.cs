@@ -31,7 +31,6 @@ public class StorytellingTree : MonoBehaviour {
     }
 
     private void Update() {
-        Debug.Log(isOpen);
         if (isOpen) {
             bool isShifting = false;
             if (Input.GetKey(KeyCode.LeftArrow)) {
@@ -57,7 +56,6 @@ public class StorytellingTree : MonoBehaviour {
                 currentTierStorytellingIdeas[1].ExecuteIdea();
                 CloseTree();
             }
-            Debug.Log(currentShift);
         }
     }
 
@@ -95,7 +93,6 @@ public class StorytellingTree : MonoBehaviour {
 
         isOpen = false;
         GameController.Instance.StartStorytellerMovement();
-        Debug.Log("finito");
     }
 
 }

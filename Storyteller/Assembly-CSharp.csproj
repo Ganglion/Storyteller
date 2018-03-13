@@ -52,10 +52,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CameraController.cs" />
+     <Compile Include="Assets\FlowersIdea.cs" />
      <Compile Include="Assets\GameController.cs" />
+     <Compile Include="Assets\GlacierIdea.cs" />
+     <Compile Include="Assets\InspirationSource.cs" />
      <Compile Include="Assets\ObjectMovement.cs" />
      <Compile Include="Assets\ShakeInstance.cs" />
      <Compile Include="Assets\Singleton.cs" />
+     <Compile Include="Assets\StorytellingIdea.cs" />
+     <Compile Include="Assets\StorytellingTree.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
