@@ -31,7 +31,12 @@ public class ObjectMovement : MonoBehaviour {
     private float airAcceleration;
     [SerializeField]
     private float jumpSpeed;
+    [SerializeField]
+    private float gravityMultiplier;
     private Vector2 velocity;
+
+    private bool canMove = true;
+    public bool CanMove { set { canMove = value; } }
 
     private void Awake() {
         objectCollider = GetComponent<Collider2D>();
@@ -41,18 +46,20 @@ public class ObjectMovement : MonoBehaviour {
     private void Update() {
         float targetHorizontalVelocity = 0;
         bool hasHorizontalInput = false;
-        
-        if (Input.GetKey(KeyCode.LeftArrow)) {
-            targetHorizontalVelocity -= maxHorizontalSpeed;
-            hasHorizontalInput = true;
-        }
-        if (Input.GetKey(KeyCode.RightArrow)) {
-            targetHorizontalVelocity += maxHorizontalSpeed;
-            hasHorizontalInput = true;
-        }
-        if (Input.GetKey(KeyCode.UpArrow) && isGrounded) {
-            velocity = new Vector2(velocity.x, jumpSpeed);
-            isGrounded = false;
+
+        if (canMove) {
+            if (Input.GetKey(KeyCode.LeftArrow)) {
+                targetHorizontalVelocity -= maxHorizontalSpeed;
+                hasHorizontalInput = true;
+            }
+            if (Input.GetKey(KeyCode.RightArrow)) {
+                targetHorizontalVelocity += maxHorizontalSpeed;
+                hasHorizontalInput = true;
+            }
+            if (Input.GetKey(KeyCode.UpArrow) && isGrounded) {
+                velocity = new Vector2(velocity.x, jumpSpeed);
+                isGrounded = false;
+            }
         }
 
         if (isGrounded) {
@@ -69,7 +76,7 @@ public class ObjectMovement : MonoBehaviour {
             }
         }
 
-        velocity += new Vector2(0, -9.81f) * Time.deltaTime;
+        velocity += gravityMultiplier * Physics2D.gravity * Time.deltaTime;
     }
 
     private void FixedUpdate() {

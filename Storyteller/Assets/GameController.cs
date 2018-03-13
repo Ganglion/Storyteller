@@ -21,10 +21,20 @@ public class GameController : Singleton<GameController> {
     [SerializeField]
     private float maxShakeIntensity;
 
+    [SerializeField]
+    private Slider inspirationSlider;
+    [SerializeField]
+    private Slider imaginationSlider;
+
     [Header("Progress Tree")]
-    private GameObject progressTreeCanvas;
+    [SerializeField]
+    private StorytellingTree storytellingTree;
+
+    [Header("Storyteller")]
+    [SerializeField]
+    private ObjectMovement storytellerMovement;
 	
-	void Update () {
+	private void Update () {
 		if (Input.GetKey(KeyCode.Space) && inspiration > 0) {
             currentConversionTime += Time.deltaTime;
             float percentCharge = Mathf.Clamp01(currentConversionTime / timeToReachMaxConversionSpeed);
@@ -38,5 +48,22 @@ public class GameController : Singleton<GameController> {
         } else if (Input.GetKeyUp(KeyCode.Space)) {
             currentConversionTime = 0;
         }
+
+        inspirationSlider.value = inspiration;
+        imaginationSlider.value = imagination;
+
+        if (imagination >= 99.9f && !storytellingTree.IsOpen) {
+            storytellingTree.OpenTree();
+            imagination -= 100;
+        }
+
 	}
+
+    public void StopStorytellerMovement() {
+        storytellerMovement.CanMove = false;
+    }
+
+    public void StartStorytellerMovement() {
+        storytellerMovement.CanMove = true;
+    }
 }
