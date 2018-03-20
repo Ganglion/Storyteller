@@ -32,6 +32,8 @@ public class GameController : Singleton<GameController> {
     private Slider inspirationSlider;
     [SerializeField]
     private Slider imaginationSlider;
+    [SerializeField]
+    private ParticleSystem imaginationSuperPS;
 
     [Header("Progress Tree")]
     [SerializeField]
@@ -40,8 +42,18 @@ public class GameController : Singleton<GameController> {
     [Header("Storyteller")]
     [SerializeField]
     private ObjectMovement storytellerMovement;
+
+    private void Awake() {
+        if (imaginationSuperPS.isPlaying) {
+            imaginationSuperPS.Stop();
+        }
+    }
 	
 	private void Update () {
+
+        if (storytellingTree.IsOpen) {
+            return;
+        }
 
         if (isIncrementingInspiration) {
             inspiration = Mathf.MoveTowards(inspiration, targetInspiration, inspirationGainSpeed * Time.deltaTime);
@@ -50,8 +62,7 @@ public class GameController : Singleton<GameController> {
             }
         }
 
-        inspiration -= inspirationDecrementRate * Time.deltaTime;
-
+        inspiration = Mathf.MoveTowards(inspiration, 0, inspirationDecrementRate * Time.deltaTime);
 
         if (Input.GetKey(KeyCode.Space) && inspiration > 0) {
             currentConversionTime += Time.deltaTime;
@@ -63,8 +74,16 @@ public class GameController : Singleton<GameController> {
             inspiration -= conversionAmount;
             imagination += conversionAmount;
 
-        } else if (Input.GetKeyUp(KeyCode.Space)) {
+            if (!imaginationSuperPS.isPlaying) {
+                imaginationSuperPS.Play();
+            }
+
+        } else {
             currentConversionTime = 0;
+
+            if (imaginationSuperPS.isPlaying) {
+                imaginationSuperPS.Stop();
+            }
         }
 
         inspirationSlider.value = inspiration;

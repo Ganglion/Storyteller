@@ -25,6 +25,9 @@ public class StorytellingTree : MonoBehaviour {
     private bool isOpen = false;
     public bool IsOpen { get { return isOpen; } }
 
+    private ParticleSystem cachedLeftEffect;
+    private ParticleSystem cachedRightEffect;
+
     private void Awake() {
         shiftRate = targetShiftScale / timeToReachFullShift;
         currentTierStorytellingIdeas = new List<StorytellingIdea>();
@@ -36,12 +39,31 @@ public class StorytellingTree : MonoBehaviour {
             if (Input.GetKey(KeyCode.LeftArrow)) {
                 currentShift -= shiftRate * Time.deltaTime;
                 isShifting = true;
+
+                if (!cachedLeftEffect.isPlaying) {
+                    cachedLeftEffect.Play();
+                }
+
+            } if (Input.GetKeyUp(KeyCode.LeftArrow)) {
+                if (cachedLeftEffect.isPlaying) {
+                    cachedLeftEffect.Stop();
+                }
             }
+
             if (Input.GetKey(KeyCode.RightArrow)) {
-                Debug.Log("AAAAAAAAAaa");
                 currentShift += shiftRate * Time.deltaTime;
                 isShifting = true;
+
+                if (!cachedRightEffect.isPlaying) {
+                    cachedRightEffect.Play();
+                }
+
+            } else if (Input.GetKeyUp(KeyCode.RightArrow)) {
+                if (cachedRightEffect.isPlaying) {
+                    cachedRightEffect.Stop();
+                }
             }
+
             if (!isShifting) {
                 currentShift = Mathf.MoveTowards(currentShift, 0, shiftRate * Time.deltaTime);
             }
@@ -74,6 +96,8 @@ public class StorytellingTree : MonoBehaviour {
         if (currentTierStorytellingIdeas.Count > 0) {
             currentTierStorytellingIdeas[0].transform.position = leftTransform.position;
             currentTierStorytellingIdeas[1].transform.position = rightTransform.position;
+            cachedLeftEffect = currentTierStorytellingIdeas[0].GetComponent<ParticleSystem>();
+            cachedRightEffect = currentTierStorytellingIdeas[1].GetComponent<ParticleSystem>();
         }
 
         for (int i = 0; i < currentTierStorytellingIdeas.Count; i++) {

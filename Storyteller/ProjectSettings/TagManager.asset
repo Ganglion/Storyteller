@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Boundary
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -19,6 +21,8 @@ TagManager:
   - Background Level 2
   - Background Level 3
   - FX
+  - Bones
+  - Controls
   - 
   - 
   - 
@@ -34,9 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Unselectable
   m_SortingLayers:
   - name: Background Level 3
     uniqueID: 2011993909
@@ -46,6 +48,12 @@ TagManager:
     locked: 0
   - name: Background Level 1
     uniqueID: 2755689397
+    locked: 0
+  - name: Baseground
+    uniqueID: 399587445
+    locked: 0
+  - name: Player
+    uniqueID: 2898542441
     locked: 0
   - name: Default
     uniqueID: 0
