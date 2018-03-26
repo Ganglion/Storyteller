@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : Singleton<GameController> {
 
     [Header("Resources")]
-    private float inspiration = 50;
+    private float inspiration = 150;
     private float imagination = 0;
     [SerializeField]
     private float baseConversionSpeed;
@@ -42,6 +42,8 @@ public class GameController : Singleton<GameController> {
     [Header("Storyteller")]
     [SerializeField]
     private ObjectMovement storytellerMovement;
+    [SerializeField]
+    private ParticleSystem storytellerImaginingPS;
 
     private void Awake() {
         if (imaginationSuperPS.isPlaying) {
@@ -77,6 +79,9 @@ public class GameController : Singleton<GameController> {
             if (!imaginationSuperPS.isPlaying) {
                 imaginationSuperPS.Play();
             }
+            if (!storytellerImaginingPS.isPlaying) {
+                storytellerImaginingPS.Play();
+            }
 
         } else {
             currentConversionTime = 0;
@@ -107,5 +112,9 @@ public class GameController : Singleton<GameController> {
 
     public void StartStorytellerMovement() {
         storytellerMovement.CanMove = true;
+
+        if (storytellerImaginingPS.isPlaying) {
+            storytellerImaginingPS.Stop();
+        }
     }
 }

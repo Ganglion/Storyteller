@@ -6,7 +6,7 @@ public class StorytellingTree : MonoBehaviour {
 
     [Header("Storytelling Ideas")]
     [SerializeField]
-    private List<GameObject> storytellingIdeas;
+    private List<StorytellingIdea> storytellingIdeas;
     [SerializeField]
     private float timeToReachFullShift;
 
@@ -14,23 +14,21 @@ public class StorytellingTree : MonoBehaviour {
     private float currentShift = 0;
     private float shiftRate;
 
-    private List<StorytellingIdea> currentTierStorytellingIdeas;
+    private StorytellingIdea currentTierStorytellingIdea;
     private int currentTier = 0;
 
     [Header("UI")]
     [SerializeField]
-    private Transform leftTransform;
+    private ParticleSystem leftPS;
     [SerializeField]
-    private Transform rightTransform;
+    private ParticleSystem rightPS;
+    [SerializeField]
+    private Transform ideaTransform;
     private bool isOpen = false;
     public bool IsOpen { get { return isOpen; } }
 
-    private ParticleSystem cachedLeftEffect;
-    private ParticleSystem cachedRightEffect;
-
     private void Awake() {
         shiftRate = targetShiftScale / timeToReachFullShift;
-        currentTierStorytellingIdeas = new List<StorytellingIdea>();
     }
 
     private void Update() {
@@ -40,53 +38,73 @@ public class StorytellingTree : MonoBehaviour {
                 currentShift -= shiftRate * Time.deltaTime;
                 isShifting = true;
 
-                if (!cachedLeftEffect.isPlaying) {
-                    cachedLeftEffect.Play();
+                if (!leftPS.isPlaying) {
+                    leftPS.Play();
+                } else {
+                    //ParticleSystem.MainModule leftPSMain = leftPS.main;
+                    //leftPSMain.startSpeed = Mathf.Abs(2 + ((currentShift / targetShiftScale) * 3));
+                    ParticleSystem.EmissionModule leftPSEmission = leftPS.emission;
+                    leftPSEmission.rateOverTime = Mathf.Abs(currentShift);
                 }
 
             } if (Input.GetKeyUp(KeyCode.LeftArrow)) {
-                if (cachedLeftEffect.isPlaying) {
-                    cachedLeftEffect.Stop();
+                if (leftPS.isPlaying) {
+                    leftPS.Stop();
                 }
+                currentShift = 0;
             }
 
             if (Input.GetKey(KeyCode.RightArrow)) {
                 currentShift += shiftRate * Time.deltaTime;
                 isShifting = true;
 
-                if (!cachedRightEffect.isPlaying) {
-                    cachedRightEffect.Play();
+                if (!rightPS.isPlaying) {
+                    rightPS.Play();
+                } else {
+                    //ParticleSystem.MainModule rightPSMain = rightPS.main;
+                    //rightPSMain.startSpeed = Mathf.Abs(-2 - ((currentShift / targetShiftScale) * 3));
+                    ParticleSystem.EmissionModule rightPSEmission = rightPS.emission;
+                    rightPSEmission.rateOverTime = Mathf.Abs(currentShift);
                 }
 
             } else if (Input.GetKeyUp(KeyCode.RightArrow)) {
-                if (cachedRightEffect.isPlaying) {
-                    cachedRightEffect.Stop();
+                if (rightPS.isPlaying) {
+                    rightPS.Stop();
                 }
+                currentShift = 0;
             }
 
+            /*
             if (!isShifting) {
                 currentShift = Mathf.MoveTowards(currentShift, 0, shiftRate * Time.deltaTime);
-            }
+            }*/
 
             if (currentShift < -targetShiftScale) {
                 // execute left
-                currentTierStorytellingIdeas[0].ExecuteIdea();
+                currentTierStorytellingIdea.ExecuteIdea(0);
                 CloseTree();
             }
             if (currentShift > targetShiftScale) {
                 // execute right
-                currentTierStorytellingIdeas[1].ExecuteIdea();
+                currentTierStorytellingIdea.ExecuteIdea(1);
                 CloseTree();
             }
         }
     }
 
     public void OpenTree() {
-        isOpen = true;
+
         GameController.Instance.StopStorytellerMovement();
+        isOpen = true;
 
         currentShift = 0;
-        for (int i = 0; i < storytellingIdeas.Count; i++) {
+
+        currentTierStorytellingIdea = storytellingIdeas[currentTier];
+        currentTierStorytellingIdea.transform.position = ideaTransform.position;
+
+        currentTierStorytellingIdea.StartIdea();
+
+        /*for (int i = 0; i < storytellingIdeas.Count; i++) {
             StorytellingIdea idea = storytellingIdeas[i].GetComponent<StorytellingIdea>();
             if (idea.IdeaTier == currentTier) {
                 currentTierStorytellingIdeas.Add(idea);
@@ -102,18 +120,28 @@ public class StorytellingTree : MonoBehaviour {
 
         for (int i = 0; i < currentTierStorytellingIdeas.Count; i++) {
             currentTierStorytellingIdeas[i].StartIdea();
-        }
+        }*/
     }
 
     public void CloseTree() {
         currentShift = 0;
         currentTier++;
 
+        currentTierStorytellingIdea.EndIdea();
+
+        if (leftPS.isPlaying) {
+            leftPS.Stop();
+        }
+        if (rightPS.isPlaying) {
+            rightPS.Stop();
+        }
+
+        /*
         for (int i = 0; i < currentTierStorytellingIdeas.Count; i++) {
             currentTierStorytellingIdeas[i].EndIdea();
         }
 
-        currentTierStorytellingIdeas.Clear();
+        currentTierStorytellingIdeas.Clear();*/
 
         isOpen = false;
         GameController.Instance.StartStorytellerMovement();

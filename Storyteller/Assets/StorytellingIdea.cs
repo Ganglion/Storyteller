@@ -1,27 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StorytellingIdea : MonoBehaviour {
 
+    /*
     [SerializeField]
     private int ideaTier;
     public int IdeaTier { get { return ideaTier; } }
-
+    */
     [SerializeField]
-    private string flavourText;
-    public string FlavourText { get { return flavourText; } }
+    private List<GameObject> spawnables;
+    public List<GameObject> Spawnables { get { return spawnables; } }
 
     public virtual void StartIdea() {
-        gameObject.SetActive(true);
+        GetComponent<Image>().enabled = true;
     }
 
-    public virtual void ExecuteIdea() {
-        
+    public virtual void ExecuteIdea(int index) {
+        if (index < spawnables.Count) {
+            spawnables[index].SetActive(true);
+        }
     }
 
     public virtual void EndIdea() {
-        gameObject.SetActive(false);
+        GetComponent<Image>().enabled = false;
     }
 
 }

@@ -33,8 +33,12 @@ public class ObjectMovement : MonoBehaviour {
     [SerializeField]
     private float jumpSpeed;
     [SerializeField]
-    private float gravityMultiplier;
+    private float gravityScale;
     private Vector2 velocity;
+
+    // Multipliers
+    private float gravityMultiplier = 1;
+    public float GravityMultiplier { get { return gravityMultiplier; } set { gravityMultiplier = value; } }
 
     private bool canMove = true;
     public bool CanMove { set { canMove = value; } }
@@ -62,7 +66,7 @@ public class ObjectMovement : MonoBehaviour {
                 hasHorizontalInput = true;
             }
             if (Input.GetKey(KeyCode.UpArrow) && isGrounded) {
-                velocity = new Vector2(velocity.x, jumpSpeed);
+                velocity = new Vector2(velocity.x, jumpSpeed * Mathf.Pow(gravityMultiplier, .375f));
                 isGrounded = false;
             }
         }
@@ -90,7 +94,7 @@ public class ObjectMovement : MonoBehaviour {
             transform.localScale = new Vector3(-initialScale.x, initialScale.y, initialScale.z);
         }
 
-        velocity += gravityMultiplier * Physics2D.gravity * Time.deltaTime;
+        velocity += Mathf.Pow(gravityMultiplier, 1.33f) * gravityScale * Physics2D.gravity * Time.deltaTime;
     }
 
     private void FixedUpdate() {
@@ -102,8 +106,6 @@ public class ObjectMovement : MonoBehaviour {
         } else {
             transform.Translate(new Vector3(0, velocity.y, 0) * Time.deltaTime);
         }
-
-        Debug.Log(isGrounded);
     }
 
     private void ProcessHorizontalMovement() {
@@ -111,7 +113,7 @@ public class ObjectMovement : MonoBehaviour {
         Bounds objectColliderBounds = objectCollider.bounds;
         Vector2 startRaycastPoint = new Vector2(objectColliderBounds.center.x, objectColliderBounds.min.y + BUFFER_LENGTH);
         Vector2 endRaycastPoint = new Vector2(objectColliderBounds.center.x, objectColliderBounds.max.y - BUFFER_LENGTH);
-        float raycastDistance = (objectColliderBounds.size.x / 2) + Mathf.Abs(velocity.x * Time.deltaTime);
+        float raycastDistance = (objectColliderBounds.size.x / 2) + Mathf.Abs(velocity.x * Time.fixedDeltaTime);
         Vector2 raycastDirection = Mathf.Sign(velocity.x) > 0 ? Vector2.right : Vector2.left;
         float horizontalMovementDirection = Mathf.Sign(velocity.x);
 
@@ -121,11 +123,12 @@ public class ObjectMovement : MonoBehaviour {
         bool encounterWall = false;
 
         for (int i = 0; i < horizontalRaycastNumber; i++) {
-            float lerpAmount = i / (verticalRaycastNumber - 1);
+            float lerpAmount = (float)i / (float)(horizontalRaycastNumber - 1);
             Vector2 raycastOrigin = Vector2.Lerp(startRaycastPoint, endRaycastPoint, lerpAmount);
             horizontalHits[i] = Physics2D.Raycast(raycastOrigin, raycastDirection, raycastDistance, collisionLayerMask);
+            Debug.DrawRay(raycastOrigin, raycastDirection, Color.red);
 
-            if (horizontalHits[i].fraction > 0) {
+            if (horizontalHits[i] && horizontalHits[i].fraction > 0) {
                 if (Vector2.Angle(horizontalHits[i].normal, Vector2.up) > maximumClimbableSlopeAngle) {
                     encounterWall = true;
                     raycastIndexUsed = i;
@@ -139,8 +142,10 @@ public class ObjectMovement : MonoBehaviour {
         }
 
         if (encounterWall && horizontalHits[raycastIndexUsed].collider.gameObject.tag == "Boundary") {
-            float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance - (objectColliderBounds.size.x / 2);
-            transform.Translate(raycastDirection * distanceToObstacle);
+            /*
+            float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance * horizontalMovementDirection - (objectColliderBounds.size.x / 2);
+            Debug.Log(distanceToObstacle);
+            transform.Translate(raycastDirection * distanceToObstacle);*/
             velocity = new Vector2(0, velocity.y);
 
         } else if (raycastIndexUsed != INVALID_INDEX) {
@@ -150,18 +155,16 @@ public class ObjectMovement : MonoBehaviour {
             } else {
                 transform.Translate(new Vector3(velocity.x, 0, 0) * Time.deltaTime);
             }
-
         } else {
-
             RaycastHit2D[] backHorizontalHits = new RaycastHit2D[horizontalRaycastNumber];
             Vector2 backRaycastDirection = Mathf.Sign(velocity.x) > 0 ? Vector2.left : Vector2.right;
 
             for (int i = 0; i < horizontalRaycastNumber; i++) {
-                float lerpAmount = i / (verticalRaycastNumber - 1);
+                float lerpAmount = (float)i / (float)(horizontalRaycastNumber - 1);
                 Vector2 raycastOrigin = Vector2.Lerp(startRaycastPoint, endRaycastPoint, lerpAmount);
                 backHorizontalHits[i] = Physics2D.Raycast(raycastOrigin, backRaycastDirection, raycastDistance, collisionLayerMask);
 
-                if (backHorizontalHits[i].fraction > 0) {
+                if (backHorizontalHits[i] && backHorizontalHits[i].fraction > 0) {
                     if (backHorizontalHits[i].fraction < smallestRaycastFraction) {
                         raycastIndexUsed = i;
                         smallestRaycastFraction = backHorizontalHits[i].fraction;
@@ -186,7 +189,7 @@ public class ObjectMovement : MonoBehaviour {
 
         Bounds objectColliderBounds = objectCollider.bounds;
 
-        /*
+        
         Vector2 startRaycastPoint = new Vector2(objectColliderBounds.min.x + BUFFER_LENGTH, objectColliderBounds.center.y);
         Vector2 endRaycastPoint = new Vector2(objectColliderBounds.max.x - BUFFER_LENGTH, objectColliderBounds.center.y);
         float raycastDistance = (objectColliderBounds.size.y / 2) + (isGrounded ? BUFFER_LENGTH : Mathf.Abs(velocity.y * Time.deltaTime));
@@ -204,23 +207,37 @@ public class ObjectMovement : MonoBehaviour {
                 raycastIndexUsed = i;
                 smallestRaycastFraction = verticalHits[i].fraction;
             }
-        }*/
+        }
 
-
+        /*
         float boxcastDistance = (objectColliderBounds.size.y / 2) + (isGrounded ? BUFFER_LENGTH : Mathf.Abs(velocity.y * Time.deltaTime));
-        RaycastHit2D verticalHit = Physics2D.BoxCast((Vector2)transform.position + new Vector2(0, BUFFER_LENGTH), new Vector2(objectColliderBounds.size.x - 2* BUFFER_LENGTH, BUFFER_LENGTH), 0, Vector2.down, boxcastDistance, collisionLayerMask);
+        RaycastHit2D verticalHit = Physics2D.BoxCast((Vector2)transform.position + new Vector2(0, BUFFER_LENGTH), new Vector2(objectColliderBounds.size.x - 2* BUFFER_LENGTH, BUFFER_LENGTH), 0, Vector2.down, boxcastDistance, collisionLayerMask);*/
 
-        /* - new Vector2(0, objectColliderBounds.size.y / 4) // objectColliderBounds.size.y / 2
+        /* - new Vector2(0, objectColliderBounds.size.y / 4) // objectColliderBounds.size.y / 2*/
         if (raycastIndexUsed != INVALID_INDEX) {
-            isGrounded = true;
-            float distanceToObstacle = verticalHits[raycastIndexUsed].fraction * raycastDistance - (objectColliderBounds.size.y / 2);
-            transform.Translate(Vector3.down * distanceToObstacle);
-            velocity = new Vector2(velocity.x, 0);
+
+            RaycastHit2D verticalHit = verticalHits[raycastIndexUsed];
+
+            if (Vector2.Angle(verticalHit.normal, Vector2.up) > maximumClimbableSlopeAngle) {
+
+                                float slideDirectionX = (verticalHit.normal.x > 0) ? -1 : 1;
+                Vector2 directionAlongGround = new Vector2(verticalHit.normal.y * slideDirectionX, -verticalHit.normal.x);
+                float slideVelocityScale = Vector2.Angle(verticalHit.normal, Vector2.up) / 90f;
+                transform.Translate(directionAlongGround * velocity.y * slideVelocityScale * Time.fixedDeltaTime);
+
+            } else {
+                isGrounded = true;
+                float distanceToObstacle = verticalHits[raycastIndexUsed].fraction * raycastDistance - (objectColliderBounds.size.y / 2);
+                transform.Translate(Vector3.down * distanceToObstacle);
+                velocity = new Vector2(velocity.x, 0);
+            }
+            
         } else {
             transform.Translate(new Vector3(0, velocity.y, 0) * Time.deltaTime);
             isGrounded = false;
-        }*/
+        }
 
+        /*
         if (verticalHit.fraction > 0) {
             isGrounded = true;
             float distanceToObstacle = verticalHit.fraction * boxcastDistance - (objectColliderBounds.size.y / 2);
@@ -229,7 +246,7 @@ public class ObjectMovement : MonoBehaviour {
         } else {
             transform.Translate(new Vector3(0, velocity.y, 0) * Time.deltaTime);
             isGrounded = false;
-        }
+        }*/
 
     }
 
