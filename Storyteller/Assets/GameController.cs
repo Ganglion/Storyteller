@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : Singleton<GameController> {
 
     [Header("Resources")]
-    private float inspiration = 150;
+    private float inspiration = 50;
     private float imagination = 0;
     private float focus = 0;
     [SerializeField]
