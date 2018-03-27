@@ -76,7 +76,7 @@ public class StorytellingTree : MonoBehaviour {
 
             /*
             if (!isShifting) {
-                currentShift = Mathf.MoveTowards(currentShift, 0, shiftRate * Time.deltaTime);
+                 currentShift = Mathf.MoveTowards(currentShift, 0, shiftRate * Time.deltaTime);
             }*/
 
             if (currentShift < -targetShiftScale) {

@@ -8,6 +8,7 @@ public class GameController : Singleton<GameController> {
     [Header("Resources")]
     private float inspiration = 150;
     private float imagination = 0;
+    private float focus = 0;
     [SerializeField]
     private float baseConversionSpeed;
     [SerializeField]
@@ -29,9 +30,19 @@ public class GameController : Singleton<GameController> {
     private float maxShakeIntensity;
 
     [SerializeField]
+    private float focusUseRate;
+    [SerializeField]
+    private float focusRestoreRate;
+    [SerializeField]
+    private float focusMinUseValue;
+    private bool isFocusing = false;
+
+    [SerializeField]
     private Slider inspirationSlider;
     [SerializeField]
     private Slider imaginationSlider;
+    [SerializeField]
+    private Slider focusSlider;
     [SerializeField]
     private ParticleSystem imaginationSuperPS;
 
@@ -44,14 +55,28 @@ public class GameController : Singleton<GameController> {
     private ObjectMovement storytellerMovement;
     [SerializeField]
     private ParticleSystem storytellerImaginingPS;
+    [SerializeField]
+    private ParticleSystem storytellerFocusPS;
 
     private void Awake() {
-        if (imaginationSuperPS.isPlaying) {
-            imaginationSuperPS.Stop();
+        focus = inspiration;
+
+        ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
+        imaginingEmission.enabled = false;
+        ParticleSystem[] imaginingEmissionChildren = storytellerImaginingPS.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < imaginingEmissionChildren.Length; i++) {
+            ParticleSystem.EmissionModule imaginingChildEmission = imaginingEmissionChildren[i].emission;
+            imaginingChildEmission.enabled = false;
         }
+
+        ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
+        imaginationSuperEmission.enabled = false;
+
+        ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
+        focusLeapEmission.enabled = false;
     }
-	
-	private void Update () {
+
+    private void Update () {
 
         if (storytellingTree.IsOpen) {
             return;
@@ -75,24 +100,98 @@ public class GameController : Singleton<GameController> {
             float conversionAmount = Mathf.Min(currentConversionSpeed * Time.deltaTime, inspiration);
             inspiration -= conversionAmount;
             imagination += conversionAmount;
-
-            if (!imaginationSuperPS.isPlaying) {
-                imaginationSuperPS.Play();
+            
+            /*
+            if (!storytellerImaginingPS.isEmitting) {
+                ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
+                imaginingEmission.enabled = true;
             }
-            if (!storytellerImaginingPS.isPlaying) {
-                storytellerImaginingPS.Play();
-            }
+            
+            Debug.Log("BAR");
+            if (!imaginationSuperPS.is) {
+                ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
+                Debug.Log("FOO");
+                imaginationSuperEmission.enabled = true;
+            }*/
+            //if (storytellerImaginingPS.isStopped) {
+                //storytellerImaginingPS.Play();
+            //}
 
         } else {
             currentConversionTime = 0;
 
-            if (imaginationSuperPS.isPlaying) {
-                imaginationSuperPS.Stop();
+            /*
+            if (storytellerImaginingPS.isEmitting) {
+                ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
+                imaginingEmission.enabled = false;
             }
+            if (imaginationSuperPS.isEmitting) {
+                ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
+                imaginationSuperEmission.enabled = false;
+            }*/
+            //if (storytellerImaginingPS.isPlaying) {
+                //storytellerImaginingPS.Stop();
+            //}
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+
+            ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
+            imaginingEmission.enabled = true;
+            ParticleSystem[] imaginingEmissionChildren = storytellerImaginingPS.GetComponentsInChildren<ParticleSystem>();
+            for (int i = 0; i < imaginingEmissionChildren.Length; i++) {
+                ParticleSystem.EmissionModule imaginingChildEmission = imaginingEmissionChildren[i].emission;
+                imaginingChildEmission.enabled = true;
+            }
+
+            ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
+            imaginationSuperEmission.enabled = true;
+
+        } else if (Input.GetKeyUp(KeyCode.Space)) {
+
+            ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
+            imaginingEmission.enabled = false;
+            ParticleSystem[] imaginingEmissionChildren = storytellerImaginingPS.GetComponentsInChildren<ParticleSystem>();
+            for (int i = 0; i < imaginingEmissionChildren.Length; i++) {
+                ParticleSystem.EmissionModule imaginingChildEmission = imaginingEmissionChildren[i].emission;
+                imaginingChildEmission.enabled = false;
+            }
+
+            ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
+            imaginationSuperEmission.enabled = true;
+
+        }
+
+
+        float braveryToUse = focusUseRate * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.LeftShift) && focus >= braveryToUse) {
+            isFocusing = true;
+            storytellerMovement.GravityMultiplier /= 2f;
+
+            if (!storytellerFocusPS.isEmitting) {
+                ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
+                focusLeapEmission.enabled = true;
+            }
+
+        } else if (isFocusing && (focus < braveryToUse || Input.GetKeyUp(KeyCode.LeftShift))) {
+            isFocusing = false;
+            storytellerMovement.GravityMultiplier *= 2f;
+
+            if (storytellerFocusPS.isEmitting) {
+                ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
+                focusLeapEmission.enabled = false;
+            }
+        }
+
+        if (!isFocusing) {
+            focus = Mathf.MoveTowards(focus, inspiration, focusRestoreRate * Time.deltaTime);
+        } else {
+            focus = Mathf.MoveTowards(focus, 0, braveryToUse);
         }
 
         inspirationSlider.value = inspiration;
         imaginationSlider.value = imagination;
+        focusSlider.value = focus;
 
         if (imagination >= 99.9f && !storytellingTree.IsOpen) {
             storytellingTree.OpenTree();

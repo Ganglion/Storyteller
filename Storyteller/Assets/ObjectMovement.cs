@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour {
 
+    [SerializeField]
+    private ParticleSystem inspirationLeapPS;
+
     [Header("Collision")]
     [SerializeField]
     private int horizontalRaycastNumber;
@@ -36,6 +39,8 @@ public class ObjectMovement : MonoBehaviour {
     private float gravityScale;
     private Vector2 velocity;
 
+    public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
+
     // Multipliers
     private float gravityMultiplier = 1;
     public float GravityMultiplier { get { return gravityMultiplier; } set { gravityMultiplier = value; } }
@@ -50,6 +55,9 @@ public class ObjectMovement : MonoBehaviour {
         collisionLayerMask = LayerMask.GetMask(OBSTACLE_LAYER);
         objectAnimator = GetComponent<Animator>();
         initialScale = transform.localScale;
+
+        ParticleSystem.EmissionModule inspirationLeapEmission = inspirationLeapPS.emission;
+        inspirationLeapEmission.enabled = false;
     }
 
     private void Update() {
@@ -68,6 +76,19 @@ public class ObjectMovement : MonoBehaviour {
             if (Input.GetKey(KeyCode.UpArrow) && isGrounded) {
                 velocity = new Vector2(velocity.x, jumpSpeed * Mathf.Pow(gravityMultiplier, .375f));
                 isGrounded = false;
+            }
+
+            
+            if (Input.GetKeyDown(KeyCode.LeftShift)) {
+                ParticleSystem.EmissionModule focusLeapEmission = inspirationLeapPS.emission;
+                focusLeapEmission.enabled = true;
+                //gravityMultiplier /= 2f;
+            } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
+                if (inspirationLeapPS.isEmitting) {
+                    ParticleSystem.EmissionModule focusLeapEmission = inspirationLeapPS.emission;
+                    focusLeapEmission.enabled = false;
+                }
+                //gravityMultiplier *= 2f;
             }
         }
 
@@ -126,7 +147,6 @@ public class ObjectMovement : MonoBehaviour {
             float lerpAmount = (float)i / (float)(horizontalRaycastNumber - 1);
             Vector2 raycastOrigin = Vector2.Lerp(startRaycastPoint, endRaycastPoint, lerpAmount);
             horizontalHits[i] = Physics2D.Raycast(raycastOrigin, raycastDirection, raycastDistance, collisionLayerMask);
-            Debug.DrawRay(raycastOrigin, raycastDirection, Color.red);
 
             if (horizontalHits[i] && horizontalHits[i].fraction > 0) {
                 if (Vector2.Angle(horizontalHits[i].normal, Vector2.up) > maximumClimbableSlopeAngle) {
