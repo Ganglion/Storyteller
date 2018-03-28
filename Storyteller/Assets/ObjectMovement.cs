@@ -38,12 +38,15 @@ public class ObjectMovement : MonoBehaviour {
     [SerializeField]
     private float gravityScale;
     private Vector2 velocity;
+    [SerializeField]
+    private float glidingSpeed;
 
     public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
 
     // Multipliers
     private float gravityMultiplier = 1;
     public float GravityMultiplier { get { return gravityMultiplier; } set { gravityMultiplier = value; } }
+    private bool isGliding = false;
 
     private bool canMove = true;
     public bool CanMove { set { canMove = value; } }
@@ -61,6 +64,11 @@ public class ObjectMovement : MonoBehaviour {
     }
 
     private void Update() {
+
+        if (isGliding) {
+            return;
+        }
+
         float targetHorizontalVelocity = 0;
         bool hasHorizontalInput = false;
 
@@ -116,6 +124,7 @@ public class ObjectMovement : MonoBehaviour {
         }
 
         velocity += Mathf.Pow(gravityMultiplier, 1.33f) * gravityScale * Physics2D.gravity * Time.deltaTime;
+
     }
 
     private void FixedUpdate() {
@@ -327,6 +336,15 @@ public class ObjectMovement : MonoBehaviour {
             isGrounded = false;
         }*/
 
+    }
+
+    public void StartGliding() {
+        isGliding = true;
+        velocity = velocity.normalized * glidingSpeed;
+    }
+
+    public void StopGliding() {
+        isGliding = false;
     }
 
 }

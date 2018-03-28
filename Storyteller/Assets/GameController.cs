@@ -158,7 +158,7 @@ public class GameController : Singleton<GameController> {
             }
 
             ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
-            imaginationSuperEmission.enabled = true;
+            imaginationSuperEmission.enabled = false;
 
         }
 
@@ -166,21 +166,19 @@ public class GameController : Singleton<GameController> {
         float braveryToUse = focusUseRate * Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.LeftShift) && focus >= braveryToUse) {
             isFocusing = true;
-            storytellerMovement.GravityMultiplier /= 2f;
-
-            if (!storytellerFocusPS.isEmitting) {
-                ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
-                focusLeapEmission.enabled = true;
-            }
+            storytellerMovement.StartGliding();
+            //if (!storytellerFocusPS.isEmitting) {
+            ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
+            focusLeapEmission.enabled = true;
+            //}
 
         } else if (isFocusing && (focus < braveryToUse || Input.GetKeyUp(KeyCode.LeftShift))) {
             isFocusing = false;
-            storytellerMovement.GravityMultiplier *= 2f;
-
-            if (storytellerFocusPS.isEmitting) {
-                ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
-                focusLeapEmission.enabled = false;
-            }
+            storytellerMovement.StopGliding();
+            //if (storytellerFocusPS.isEmitting) {
+            ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
+            focusLeapEmission.enabled = false;
+            //}
         }
 
         if (!isFocusing) {
@@ -212,8 +210,15 @@ public class GameController : Singleton<GameController> {
     public void StartStorytellerMovement() {
         storytellerMovement.CanMove = true;
 
-        if (storytellerImaginingPS.isPlaying) {
-            storytellerImaginingPS.Stop();
+        ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
+        imaginingEmission.enabled = false;
+        ParticleSystem[] imaginingEmissionChildren = storytellerImaginingPS.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < imaginingEmissionChildren.Length; i++) {
+            ParticleSystem.EmissionModule imaginingChildEmission = imaginingEmissionChildren[i].emission;
+            imaginingChildEmission.enabled = false;
         }
+
+        ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
+        imaginationSuperEmission.enabled = false;
     }
 }

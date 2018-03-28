@@ -1262,6 +1262,7 @@ MonoBehaviour:
   airAcceleration: 3
   jumpSpeed: 12
   gravityScale: 3.5
+  glidingSpeed: 0
 --- !u!137 &137024388084618680
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
