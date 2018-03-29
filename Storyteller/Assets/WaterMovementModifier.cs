@@ -9,14 +9,12 @@ public class WaterMovementModifier : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
-            Debug.Log("POG");
             other.GetComponent<ObjectMovement>().GravityMultiplier /= gravityMultiplierScale;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
-            Debug.Log("Champ");
             other.GetComponent<ObjectMovement>().GravityMultiplier *= gravityMultiplierScale;
         }
     }

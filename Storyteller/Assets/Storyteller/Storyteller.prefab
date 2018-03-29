@@ -622,7 +622,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1975686263985776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 61.66, y: -30.75, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 4943804712974972}
@@ -855,7 +855,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.5
-  m_Range: 50
+  m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 1.24062
+  m_Length: 1.2406222
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4716983141733856}
   m_AttachedIK: {fileID: 0}
@@ -1256,13 +1256,14 @@ MonoBehaviour:
   inspirationLeapPS: {fileID: 198239310010765202}
   horizontalRaycastNumber: 24
   verticalRaycastNumber: 12
-  maximumClimbableSlopeAngle: 55
+  maximumClimbableSlopeAngle: 60
   maxHorizontalSpeed: 4
   groundAcceleration: 16
   airAcceleration: 3
-  jumpSpeed: 12
-  gravityScale: 3.5
-  glidingSpeed: 0
+  jumpSpeed: 8
+  gravityScale: 2
+  maxFallGravityScale: 1.75
+  glidingSpeed: 5
 --- !u!137 &137024388084618680
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

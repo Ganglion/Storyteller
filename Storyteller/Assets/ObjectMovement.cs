@@ -37,6 +37,8 @@ public class ObjectMovement : MonoBehaviour {
     private float jumpSpeed;
     [SerializeField]
     private float gravityScale;
+    [SerializeField]
+    private float maxFallGravityScale;
     private Vector2 velocity;
     [SerializeField]
     private float glidingSpeed;
@@ -47,6 +49,7 @@ public class ObjectMovement : MonoBehaviour {
     private float gravityMultiplier = 1;
     public float GravityMultiplier { get { return gravityMultiplier; } set { gravityMultiplier = value; } }
     private bool isGliding = false;
+    private float timeStartGliding = 0;
 
     private bool canMove = true;
     public bool CanMove { set { canMove = value; } }
@@ -66,6 +69,7 @@ public class ObjectMovement : MonoBehaviour {
     private void Update() {
 
         if (isGliding) {
+            //velocity = 4 + (Time.time - timeStartGliding);
             return;
         }
 
@@ -90,6 +94,7 @@ public class ObjectMovement : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.LeftShift)) {
                 ParticleSystem.EmissionModule focusLeapEmission = inspirationLeapPS.emission;
                 focusLeapEmission.enabled = true;
+                timeStartGliding = Time.time;
                 //gravityMultiplier /= 2f;
             } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
                 if (inspirationLeapPS.isEmitting) {
@@ -124,6 +129,7 @@ public class ObjectMovement : MonoBehaviour {
         }
 
         velocity += Mathf.Pow(gravityMultiplier, 1.33f) * gravityScale * Physics2D.gravity * Time.deltaTime;
+        velocity.y = Mathf.Max(velocity.y, maxFallGravityScale * Physics2D.gravity.y);
 
     }
 
@@ -180,6 +186,7 @@ public class ObjectMovement : MonoBehaviour {
             float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance * horizontalMovementDirection - (objectColliderBounds.size.x / 2);
             Debug.Log(distanceToObstacle);
             transform.Translate(raycastDirection * distanceToObstacle);*/
+            Debug.Log("WASDA");
             velocity = new Vector2(0, velocity.y);
 
         } else if (raycastIndexUsed != INVALID_INDEX) {
@@ -199,7 +206,7 @@ public class ObjectMovement : MonoBehaviour {
                 backHorizontalHits[i] = Physics2D.Raycast(raycastOrigin, backRaycastDirection, raycastDistance, collisionLayerMask);
 
                 if (backHorizontalHits[i] && backHorizontalHits[i].fraction > 0) {
-                    if (backHorizontalHits[i].fraction < smallestRaycastFraction) {
+                    if (backHorizontalHits[i].fraction < smallestRaycastFraction && Vector2.Angle(backHorizontalHits[i].normal, Vector2.up) <= maximumClimbableSlopeAngle) {
                         raycastIndexUsed = i;
                         smallestRaycastFraction = backHorizontalHits[i].fraction;
                     }
@@ -208,6 +215,8 @@ public class ObjectMovement : MonoBehaviour {
 
             if (raycastIndexUsed != INVALID_INDEX) {
                 if (isGrounded) {
+
+                    Debug.Log("HAOHAO");
                     Vector2 directionAlongGround = new Vector2(backHorizontalHits[raycastIndexUsed].normal.y * horizontalMovementDirection, - backHorizontalHits[raycastIndexUsed].normal.x * horizontalMovementDirection);
                     transform.Translate(directionAlongGround * velocity.magnitude * Time.deltaTime);
                 } else {
@@ -257,7 +266,9 @@ public class ObjectMovement : MonoBehaviour {
                 float slideDirectionX = (verticalHit.normal.x > 0) ? -1 : 1;
                 Vector2 directionAlongGround = new Vector2(verticalHit.normal.y * slideDirectionX, -verticalHit.normal.x);
                 float slideVelocityScale = Vector2.Angle(verticalHit.normal, Vector2.up) / 90f;
+                Vector2 targetVelocity = directionAlongGround * velocity.y * slideVelocityScale;
                 transform.Translate(directionAlongGround * velocity.y * slideVelocityScale * Time.fixedDeltaTime);
+                velocity.x = Mathf.Max(velocity.x, targetVelocity.x);
 
             } else {
                 isGrounded = true;

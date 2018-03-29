@@ -12,10 +12,11 @@ public class InspirationSource : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
+            GetComponent<ParticleSystem>().Stop();
             GameController.Instance.GainInspiration(inspirationStored);
-            GameObject newInspirationEffect = Instantiate(inspirationEffect, other.transform.position, Quaternion.Euler(Vector3.zero));
-            newInspirationEffect.transform.parent = other.transform;
-            gameObject.SetActive(false);
+            GameObject newInspirationEffect = Instantiate(inspirationEffect, transform.position, Quaternion.Euler(Vector3.zero));
+            //newInspirationEffect.transform.parent = other.transform;
+            GetComponent<CircleCollider2D>().enabled = false;
         }
     }
 
