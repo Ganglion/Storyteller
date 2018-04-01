@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Launchpad : MonoBehaviour {
 
+    private enum LaunchType {
+        OnDescend,
+        OnAscend,
+        Any
+    }
+
+    [SerializeField]
+    private LaunchType launchType = LaunchType.OnDescend;
+
     [SerializeField]
     private Vector2 launchDirection;
     [SerializeField]
     private float launchSpeed;
-    [SerializeField]
-    private bool launchWhileFalling = false;
     [SerializeField]
     private string animationTrigger;
 
@@ -24,14 +31,23 @@ public class Launchpad : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
             ObjectMovement otherMovement = other.GetComponent<ObjectMovement>();
-            bool launchCheck = launchWhileFalling ? otherMovement.Velocity.y < 0 : otherMovement.Velocity.y > 0;
-            if (launchCheck) {
-                launchpadAnimator.SetTrigger(animationTrigger);
-                //Vector2 otherVelocity = otherMovement.Velocity;
-                //otherVelocity.y = launchSpeed;
-                //otherMovement.Velocity = otherVelocity;
-                otherMovement.Velocity = normalizedLaunchDirection * launchSpeed;
+            if (launchType == LaunchType.OnDescend) {
+                if (otherMovement.Velocity.y < 0) {
+                    Launch(otherMovement);
+                }
+            } else if (launchType == LaunchType.OnAscend) {
+                if (otherMovement.Velocity.y < 0) {
+                    Launch(otherMovement);
+                }
+            } else if (launchType == LaunchType.Any) {
+                Launch(otherMovement);
             }
+
         }
+    }
+
+    private void Launch(ObjectMovement launchedObjectMovement) {
+        launchpadAnimator.SetTrigger(animationTrigger);
+        launchedObjectMovement.Velocity = normalizedLaunchDirection * launchSpeed;
     }
 }
