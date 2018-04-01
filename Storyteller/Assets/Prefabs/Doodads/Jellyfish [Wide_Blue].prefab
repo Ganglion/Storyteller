@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4960498605453754}
   - component: {fileID: 33484625208274072}
-  - component: {fileID: 64140301560429944}
+  - component: {fileID: 64173611205779540}
   - component: {fileID: 23604150590604500}
   m_Layer: 0
   m_Name: Jellyfish [Wide_Blue]
@@ -35,13 +35,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1166258648307284}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.51, y: 0.86, z: 0}
-  m_LocalScale: {x: 3.75, y: 2.75, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.10388473, w: -0.9945894}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5.625, y: 4.125, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -11.926001}
 --- !u!23 &23604150590604500
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -83,7 +83,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1166258648307284}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64140301560429944
+--- !u!64 &64173611205779540
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

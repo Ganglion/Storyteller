@@ -14,11 +14,11 @@ public class Launchpad : MonoBehaviour {
     private string animationTrigger;
 
     private Vector2 normalizedLaunchDirection;
+    [SerializeField]
     private Animator launchpadAnimator;
 
     private void Awake() {
         normalizedLaunchDirection = launchDirection.normalized;
-        launchpadAnimator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

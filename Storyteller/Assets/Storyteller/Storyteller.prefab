@@ -1257,6 +1257,7 @@ MonoBehaviour:
   horizontalRaycastNumber: 24
   verticalRaycastNumber: 12
   maximumClimbableSlopeAngle: 60
+  maximumDescendableSlopeAngle: 40
   maxHorizontalSpeed: 4
   groundAcceleration: 16
   airAcceleration: 3
