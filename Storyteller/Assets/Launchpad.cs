@@ -9,6 +9,8 @@ public class Launchpad : MonoBehaviour {
     [SerializeField]
     private float launchSpeed;
     [SerializeField]
+    private bool launchWhileFalling = false;
+    [SerializeField]
     private string animationTrigger;
 
     private Vector2 normalizedLaunchDirection;
@@ -22,7 +24,8 @@ public class Launchpad : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
             ObjectMovement otherMovement = other.GetComponent<ObjectMovement>();
-            if (otherMovement.Velocity.y < 0) {
+            bool launchCheck = launchWhileFalling ? otherMovement.Velocity.y < 0 : otherMovement.Velocity.y > 0;
+            if (launchCheck) {
                 launchpadAnimator.SetTrigger(animationTrigger);
                 //Vector2 otherVelocity = otherMovement.Velocity;
                 //otherVelocity.y = launchSpeed;

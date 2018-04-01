@@ -28,6 +28,9 @@ public class ObjectMovement : MonoBehaviour {
     [Range(0, 90)]
     private float maximumClimbableSlopeAngle = 60;
     [SerializeField]
+    [Range(0, 90)]
+    private float maximumDescendableSlopeAngle = 40;
+    [SerializeField]
     private float maxHorizontalSpeed;
     [SerializeField]
     private float groundAcceleration;
@@ -186,7 +189,6 @@ public class ObjectMovement : MonoBehaviour {
             float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance * horizontalMovementDirection - (objectColliderBounds.size.x / 2);
             Debug.Log(distanceToObstacle);
             transform.Translate(raycastDirection * distanceToObstacle);*/
-            Debug.Log("WASDA");
             velocity = new Vector2(0, velocity.y);
 
         } else if (raycastIndexUsed != INVALID_INDEX) {
@@ -194,7 +196,10 @@ public class ObjectMovement : MonoBehaviour {
                 Vector2 directionAlongGround = new Vector2(horizontalHits[raycastIndexUsed].normal.y * horizontalMovementDirection, -horizontalHits[raycastIndexUsed].normal.x * horizontalMovementDirection);
                 transform.Translate(directionAlongGround * velocity.magnitude * Time.deltaTime);
             } else {
-                transform.Translate(new Vector3(velocity.x, 0, 0) * Time.deltaTime);
+                float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance * horizontalMovementDirection - (objectColliderBounds.size.x / 2);
+                transform.Translate(raycastDirection * distanceToObstacle);
+                isGrounded = true;
+
             }
         } else {
             RaycastHit2D[] backHorizontalHits = new RaycastHit2D[horizontalRaycastNumber];
@@ -206,7 +211,7 @@ public class ObjectMovement : MonoBehaviour {
                 backHorizontalHits[i] = Physics2D.Raycast(raycastOrigin, backRaycastDirection, raycastDistance, collisionLayerMask);
 
                 if (backHorizontalHits[i] && backHorizontalHits[i].fraction > 0) {
-                    if (backHorizontalHits[i].fraction < smallestRaycastFraction && Vector2.Angle(backHorizontalHits[i].normal, Vector2.up) <= maximumClimbableSlopeAngle) {
+                    if (backHorizontalHits[i].fraction < smallestRaycastFraction && Vector2.Angle(backHorizontalHits[i].normal, Vector2.up) <= maximumDescendableSlopeAngle) {
                         raycastIndexUsed = i;
                         smallestRaycastFraction = backHorizontalHits[i].fraction;
                     }
@@ -215,8 +220,6 @@ public class ObjectMovement : MonoBehaviour {
 
             if (raycastIndexUsed != INVALID_INDEX) {
                 if (isGrounded) {
-
-                    Debug.Log("HAOHAO");
                     Vector2 directionAlongGround = new Vector2(backHorizontalHits[raycastIndexUsed].normal.y * horizontalMovementDirection, - backHorizontalHits[raycastIndexUsed].normal.x * horizontalMovementDirection);
                     transform.Translate(directionAlongGround * velocity.magnitude * Time.deltaTime);
                 } else {

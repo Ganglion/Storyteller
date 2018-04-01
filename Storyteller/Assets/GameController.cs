@@ -36,6 +36,7 @@ public class GameController : Singleton<GameController> {
     [SerializeField]
     private float focusMinUseValue;
     private bool isFocusing = false;
+    private bool hasFocused = false;
 
     [SerializeField]
     private Slider inspirationSlider;
@@ -161,10 +162,16 @@ public class GameController : Singleton<GameController> {
             imaginationSuperEmission.enabled = false;
 
         }
+        // && !isFocusing && storytellerMovement.Velocity.sqrMagnitude < 25
 
+        if (hasFocused) {
+            if (storytellerMovement.Velocity.y <= 0) {
+                hasFocused = false;
+            }
+        }
 
         float braveryToUse = focusUseRate * Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.LeftShift) && focus >= braveryToUse) {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && focus >= braveryToUse && !hasFocused) {
             isFocusing = true;
             storytellerMovement.StartGliding();
             //if (!storytellerFocusPS.isEmitting) {
@@ -178,6 +185,7 @@ public class GameController : Singleton<GameController> {
             //if (storytellerFocusPS.isEmitting) {
             ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
             focusLeapEmission.enabled = false;
+            hasFocused = true;
             //}
         }
 
