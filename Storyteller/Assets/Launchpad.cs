@@ -36,7 +36,7 @@ public class Launchpad : MonoBehaviour {
                     Launch(otherMovement);
                 }
             } else if (launchType == LaunchType.OnAscend) {
-                if (otherMovement.Velocity.y < 0) {
+                if (otherMovement.Velocity.y > 0) {
                     Launch(otherMovement);
                 }
             } else if (launchType == LaunchType.Any) {

@@ -53,13 +53,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1387569280133954}
-  m_LocalRotation: {x: -0, y: -0, z: 0.10388473, w: -0.9945894}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5.625, y: 4.125, z: 1}
   m_Children: []
   m_Father: {fileID: 4803982644347298}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -11.926001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4803982644347298
 Transform:
   m_ObjectHideFlags: 1
@@ -178,8 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f255025ccfa275c4c9e1624e9290eb9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  launchType: 0
   launchDirection: {x: -0.125, y: 1}
   launchSpeed: 20
-  launchWhileFalling: 1
   animationTrigger: Bounce
   launchpadAnimator: {fileID: 95736549120797762}
