@@ -83,13 +83,11 @@ public class StorytellingTree : MonoBehaviour {
             if (currentShift < -targetShiftScale) {
                 // execute left
                 currentTierStorytellingIdea.ExecuteIdea(0);
-
                 CloseTree();
             }
             if (currentShift > targetShiftScale) {
                 // execute right
                 currentTierStorytellingIdea.ExecuteIdea(1);
-
                 CloseTree();
             }
         }

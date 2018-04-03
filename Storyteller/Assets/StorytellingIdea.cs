@@ -21,6 +21,7 @@ public class StorytellingIdea : MonoBehaviour {
     public virtual void ExecuteIdea(int index) {
         if (index < spawnables.Count) {
             spawnables[index].SetActive(true);
+            GameController.Instance.StartHelper(spawnables[index].transform.position);
         }
     }
 

@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Draft Again.unity
-    guid: e7d6123cfb78f6948a163caaa9ed15a5
   - enabled: 1
     path: Assets/Chapter One.unity
-    guid: 5cede59536ce5544e86582ccc36723bb
+    guid: 516fe974100c8664a95454ea36800468

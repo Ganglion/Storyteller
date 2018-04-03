@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : Singleton<GameController> {
 
     [Header("Resources")]
-    private float inspiration = 110;
+    private float inspiration = 50;
     private float imagination = 0;
     private float focus = 0;
     [SerializeField]
@@ -70,6 +70,7 @@ public class GameController : Singleton<GameController> {
     private Camera targetCamera;
     private float targetHelperRadius;
     private Vector3 targetPoint;
+    private float initialCameraZDistance;
     private bool isHelping = false;
 
     private void Awake() {
@@ -89,10 +90,8 @@ public class GameController : Singleton<GameController> {
         ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
         focusLeapEmission.enabled = false;
 
-        Vector2 screenWorldSize;
-        screenWorldSize.y = targetCamera.orthographicSize * 2;
-        screenWorldSize.x = screenWorldSize.y * Screen.width / Screen.height;
-        targetHelperRadius = Mathf.Min(screenWorldSize.x, screenWorldSize.y) * radiusScale;
+        targetHelperRadius = Mathf.Min(Screen.width, Screen.height) * radiusScale;
+        initialCameraZDistance = -targetCamera.transform.position.z;
 
         ParticleSystem.EmissionModule helpingPSEmission = helperPS.emission;
         helpingPSEmission.enabled = false;
@@ -197,8 +196,12 @@ public class GameController : Singleton<GameController> {
         }
         
         if (isHelping) {
-            Vector3 directionToTargetPoint = targetPoint - storytellerMovement.transform.position;
-            helperPS.transform.position = storytellerMovement.transform.position + directionToTargetPoint.normalized * radiusScale;
+            Vector3 storytellerScreenPoint = targetCamera.WorldToScreenPoint(storytellerMovement.transform.position);
+            Vector3 targetPointScreenPoint = targetCamera.WorldToScreenPoint(targetPoint);
+            Vector3 directionToTargetPoint = targetPointScreenPoint - storytellerScreenPoint;
+            Vector3 helperPSTargetScreenPoint = storytellerScreenPoint + directionToTargetPoint.normalized * targetHelperRadius;
+            helperPSTargetScreenPoint.z = 10;
+            helperPS.transform.position = targetCamera.ScreenToWorldPoint(helperPSTargetScreenPoint);
             if (directionToTargetPoint.sqrMagnitude < Mathf.Pow(stopRadius, 2)) {
                 StopHelper();
             }
