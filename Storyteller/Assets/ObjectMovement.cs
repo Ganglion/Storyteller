@@ -21,6 +21,7 @@ public class ObjectMovement : MonoBehaviour {
 
     private const float BUFFER_LENGTH = 0.05f;
     private const string OBSTACLE_LAYER = "Obstacle";
+    private const string BOUNDARY_TAG = "Boundary";
     private const int INVALID_INDEX = -1;
 
     [Header("Movement")]
@@ -72,7 +73,6 @@ public class ObjectMovement : MonoBehaviour {
     private void Update() {
 
         if (isGliding) {
-            //velocity = 4 + (Time.time - timeStartGliding);
             return;
         }
 
@@ -145,11 +145,6 @@ public class ObjectMovement : MonoBehaviour {
         } else if (velocity.y > 0) {
             ProcessVerticalUpwardsMovement();
         }
-        
-        /*
-        else {
-            transform.Translate(new Vector3(0, velocity.y, 0) * Time.deltaTime);
-        }*/
     }
 
     private void ProcessHorizontalMovement() {
@@ -176,7 +171,7 @@ public class ObjectMovement : MonoBehaviour {
                     encounterWall = true;
                     raycastIndexUsed = i;
                 }
-                if (horizontalHits[i].fraction < smallestRaycastFraction) {
+                if (horizontalHits[i].fraction < smallestRaycastFraction && horizontalHits[i].collider.tag == BOUNDARY_TAG) {
                     raycastIndexUsed = i;
                     smallestRaycastFraction = horizontalHits[i].fraction;
                 }
@@ -184,19 +179,17 @@ public class ObjectMovement : MonoBehaviour {
 
         }
 
-        if (encounterWall && horizontalHits[raycastIndexUsed].collider.gameObject.tag == "Boundary") {
-            /*
-            float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance * horizontalMovementDirection - (objectColliderBounds.size.x / 2);
-            Debug.Log(distanceToObstacle);
-            transform.Translate(raycastDirection * distanceToObstacle);*/
+        if (encounterWall && (horizontalHits[raycastIndexUsed].collider.tag == BOUNDARY_TAG || isGrounded)) {
+            float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance - (objectColliderBounds.size.x / 2);
+            transform.Translate(raycastDirection * distanceToObstacle);
             velocity = new Vector2(0, velocity.y);
 
-        } else if (raycastIndexUsed != INVALID_INDEX) {
+        } else if (raycastIndexUsed != INVALID_INDEX && horizontalHits[raycastIndexUsed].collider.tag == BOUNDARY_TAG) {
             if (isGrounded) {
                 Vector2 directionAlongGround = new Vector2(horizontalHits[raycastIndexUsed].normal.y * horizontalMovementDirection, -horizontalHits[raycastIndexUsed].normal.x * horizontalMovementDirection);
                 transform.Translate(directionAlongGround * velocity.magnitude * Time.deltaTime);
             } else {
-                float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance * horizontalMovementDirection - (objectColliderBounds.size.x / 2);
+                float distanceToObstacle = horizontalHits[raycastIndexUsed].fraction * raycastDistance - (objectColliderBounds.size.x / 2);
                 transform.Translate(raycastDirection * distanceToObstacle);
                 isGrounded = true;
 
@@ -316,7 +309,7 @@ public class ObjectMovement : MonoBehaviour {
             Vector2 raycastOrigin = Vector2.Lerp(startRaycastPoint, endRaycastPoint, lerpAmount);
             verticalHits[i] = Physics2D.Raycast(raycastOrigin, Vector2.up, raycastDistance, collisionLayerMask);
 
-            if (verticalHits[i].fraction > 0 && verticalHits[i].fraction < smallestRaycastFraction) {
+            if (verticalHits[i].fraction > 0 && verticalHits[i].fraction < smallestRaycastFraction && verticalHits[i].collider.tag == BOUNDARY_TAG) {
                 raycastIndexUsed = i;
                 smallestRaycastFraction = verticalHits[i].fraction;
             }
@@ -359,6 +352,7 @@ public class ObjectMovement : MonoBehaviour {
 
     public void StopGliding() {
         isGliding = false;
+        velocity.y = Mathf.Min(velocity.y, maxHorizontalSpeed);
     }
 
 }

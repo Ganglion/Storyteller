@@ -23,6 +23,8 @@ public class StorytellingTree : MonoBehaviour {
     [SerializeField]
     private ParticleSystem rightPS;
     [SerializeField]
+    private Transform fillBarScaler;
+    [SerializeField]
     private Transform ideaTransform;
     private bool isOpen = false;
     public bool IsOpen { get { return isOpen; } }
@@ -33,10 +35,8 @@ public class StorytellingTree : MonoBehaviour {
 
     private void Update() {
         if (isOpen) {
-            bool isShifting = false;
             if (Input.GetKey(KeyCode.LeftArrow)) {
                 currentShift -= shiftRate * Time.deltaTime;
-                isShifting = true;
 
                 if (!leftPS.isPlaying) {
                     leftPS.Play();
@@ -56,7 +56,6 @@ public class StorytellingTree : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.RightArrow)) {
                 currentShift += shiftRate * Time.deltaTime;
-                isShifting = true;
 
                 if (!rightPS.isPlaying) {
                     rightPS.Play();
@@ -79,14 +78,18 @@ public class StorytellingTree : MonoBehaviour {
                  currentShift = Mathf.MoveTowards(currentShift, 0, shiftRate * Time.deltaTime);
             }*/
 
+            fillBarScaler.localScale = new Vector3(currentShift / targetShiftScale, 1, 1);
+
             if (currentShift < -targetShiftScale) {
                 // execute left
                 currentTierStorytellingIdea.ExecuteIdea(0);
+
                 CloseTree();
             }
             if (currentShift > targetShiftScale) {
                 // execute right
                 currentTierStorytellingIdea.ExecuteIdea(1);
+
                 CloseTree();
             }
         }
@@ -142,6 +145,8 @@ public class StorytellingTree : MonoBehaviour {
         }
 
         currentTierStorytellingIdeas.Clear();*/
+
+        fillBarScaler.localScale = new Vector3(0, 1, 1);
 
         isOpen = false;
         GameController.Instance.StartStorytellerMovement();

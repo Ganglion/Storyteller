@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : Singleton<GameController> {
 
     [Header("Resources")]
-    private float inspiration = 50;
+    private float inspiration = 110;
     private float imagination = 0;
     private float focus = 0;
     [SerializeField]
@@ -59,6 +59,19 @@ public class GameController : Singleton<GameController> {
     [SerializeField]
     private ParticleSystem storytellerFocusPS;
 
+    [Header("Path Helper")]
+    [SerializeField]
+    private ParticleSystem helperPS;
+    [SerializeField]
+    private float stopRadius = 3;
+    [SerializeField]
+    private float radiusScale = 0.75f;
+    [SerializeField]
+    private Camera targetCamera;
+    private float targetHelperRadius;
+    private Vector3 targetPoint;
+    private bool isHelping = false;
+
     private void Awake() {
         focus = inspiration;
 
@@ -75,6 +88,14 @@ public class GameController : Singleton<GameController> {
 
         ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
         focusLeapEmission.enabled = false;
+
+        Vector2 screenWorldSize;
+        screenWorldSize.y = targetCamera.orthographicSize * 2;
+        screenWorldSize.x = screenWorldSize.y * Screen.width / Screen.height;
+        targetHelperRadius = Mathf.Min(screenWorldSize.x, screenWorldSize.y) * radiusScale;
+
+        ParticleSystem.EmissionModule helpingPSEmission = helperPS.emission;
+        helpingPSEmission.enabled = false;
     }
 
     private void Update () {
@@ -101,38 +122,9 @@ public class GameController : Singleton<GameController> {
             float conversionAmount = Mathf.Min(currentConversionSpeed * Time.deltaTime, inspiration);
             inspiration -= conversionAmount;
             imagination += conversionAmount;
-            
-            /*
-            if (!storytellerImaginingPS.isEmitting) {
-                ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
-                imaginingEmission.enabled = true;
-            }
-            
-            Debug.Log("BAR");
-            if (!imaginationSuperPS.is) {
-                ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
-                Debug.Log("FOO");
-                imaginationSuperEmission.enabled = true;
-            }*/
-            //if (storytellerImaginingPS.isStopped) {
-                //storytellerImaginingPS.Play();
-            //}
 
         } else {
             currentConversionTime = 0;
-
-            /*
-            if (storytellerImaginingPS.isEmitting) {
-                ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
-                imaginingEmission.enabled = false;
-            }
-            if (imaginationSuperPS.isEmitting) {
-                ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
-                imaginationSuperEmission.enabled = false;
-            }*/
-            //if (storytellerImaginingPS.isPlaying) {
-                //storytellerImaginingPS.Stop();
-            //}
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -203,6 +195,14 @@ public class GameController : Singleton<GameController> {
             storytellingTree.OpenTree();
             imagination -= 100;
         }
+        
+        if (isHelping) {
+            Vector3 directionToTargetPoint = targetPoint - storytellerMovement.transform.position;
+            helperPS.transform.position = storytellerMovement.transform.position + directionToTargetPoint.normalized * radiusScale;
+            if (directionToTargetPoint.sqrMagnitude < Mathf.Pow(stopRadius, 2)) {
+                StopHelper();
+            }
+        }
 
 	}
 
@@ -228,5 +228,18 @@ public class GameController : Singleton<GameController> {
 
         ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
         imaginationSuperEmission.enabled = false;
+    }
+
+    public void StartHelper(Vector3 point) {
+        targetPoint = point;
+        ParticleSystem.EmissionModule helpingPSEmission = helperPS.emission;
+        helpingPSEmission.enabled = true;
+        isHelping = true;
+    }
+
+    private void StopHelper() {
+        ParticleSystem.EmissionModule helpingPSEmission = helperPS.emission;
+        helpingPSEmission.enabled = false;
+        isHelping = false;
     }
 }
