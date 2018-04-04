@@ -32,9 +32,12 @@ public class GameController : Singleton<GameController> {
     [SerializeField]
     private float focusUseRate;
     [SerializeField]
+    private float focusUseIncreaseRate;
+    [SerializeField]
     private float focusRestoreRate;
     [SerializeField]
     private float focusMinUseValue;
+    private float currentFocusUseRate;
     private bool isFocusing = false;
     private bool hasFocused = false;
 
@@ -98,6 +101,10 @@ public class GameController : Singleton<GameController> {
     }
 
     private void Update () {
+
+        if (Input.GetKeyDown(KeyCode.I)) {
+            inspiration += 20;
+        }
 
         if (storytellingTree.IsOpen) {
             return;

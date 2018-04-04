@@ -46,6 +46,7 @@ public class ObjectMovement : MonoBehaviour {
     private Vector2 velocity;
     [SerializeField]
     private float glidingSpeed;
+    private float initialGravityScale;
 
     public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
 
@@ -66,13 +67,32 @@ public class ObjectMovement : MonoBehaviour {
         objectAnimator = GetComponent<Animator>();
         initialScale = transform.localScale;
 
+        initialGravityScale = gravityScale;
+
         ParticleSystem.EmissionModule inspirationLeapEmission = inspirationLeapPS.emission;
         inspirationLeapEmission.enabled = false;
     }
 
     private void Update() {
 
-        if (isGliding) {
+        if (isGliding) {                                                       ,mm,                                                                    
+
+            Vector2 targetGlidingVelocity = Vector2.zero;
+            if (Input.GetKey(KeyCode.LeftArrow)) {
+                targetGlidingVelocity.x -= glidingSpeed;
+            }
+            if (Input.GetKey(KeyCode.RightArrow)) {
+                targetGlidingVelocity.x += glidingSpeed;
+            }
+            if (Input.GetKey(KeyCode.UpArrow)) {
+                targetGlidingVelocity.y += glidingSpeed;
+            }
+            if (Input.GetKey(KeyCode.DownArrow)) {
+                targetGlidingVelocity.y -= glidingSpeed;
+            }
+            
+            velocity = Vector2.MoveTowards(velocity, targetGlidingVelocity, 16 * Time.deltaTime);
+
             return;
         }
 
@@ -347,12 +367,15 @@ public class ObjectMovement : MonoBehaviour {
 
     public void StartGliding() {
         isGliding = true;
-        velocity = velocity.normalized * glidingSpeed;
+        isGrounded = false;
+        gravityScale = 0;
+        //velocity = velocity.normalized * glidingSpeed;
     }
 
     public void StopGliding() {
         isGliding = false;
-        velocity.y = Mathf.Min(velocity.y, maxHorizontalSpeed);
+        //velocity.y = Mathf.Min(velocity.y, maxHorizontalSpeed);
+        gravityScale = initialGravityScale;
     }
 
 }
