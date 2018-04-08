@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Boundary
   - FxTemporaire
+  - Enemy
+  - Laser
+  - Moving Platform
   layers:
   - Default
   - TransparentFX

@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inspirationEffect: {fileID: 1047415605939152, guid: 15499c750abffcc4e96d1b7393d3c263,
     type: 2}
-  inspirationStored: 50
+  inspirationStored: 7.5
 --- !u!198 &198060885417155784
 ParticleSystem:
   m_ObjectHideFlags: 1
