@@ -6,5 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Storyteller.unity
+    guid: 176da6df442f9cd4e9871cbcc62205f7
+  - enabled: 1
     path: Assets/Chapter One.unity
     guid: 516fe974100c8664a95454ea36800468
+  - enabled: 1
+    path: Assets/Finale.unity
+    guid: c0236f3e9c41fd84a80c50dcaaf034da
