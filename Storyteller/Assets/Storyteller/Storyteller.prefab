@@ -1265,6 +1265,7 @@ MonoBehaviour:
   gravityScale: 2
   maxFallGravityScale: 1.75
   glidingSpeed: 5
+  glidingAcceleration: 16
 --- !u!137 &137024388084618680
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

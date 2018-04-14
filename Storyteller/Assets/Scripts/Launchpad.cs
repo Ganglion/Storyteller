@@ -19,6 +19,8 @@ public class Launchpad : MonoBehaviour {
     private float launchSpeed;
     [SerializeField]
     private string animationTrigger;
+    [SerializeField]
+    private bool overwriteXVelocity = true;
 
     private Vector2 normalizedLaunchDirection;
     [SerializeField]
@@ -48,6 +50,15 @@ public class Launchpad : MonoBehaviour {
 
     private void Launch(ObjectMovement launchedObjectMovement) {
         launchpadAnimator.SetTrigger(animationTrigger);
-        launchedObjectMovement.Velocity = normalizedLaunchDirection * launchSpeed;
+        if (overwriteXVelocity) {
+            
+            launchedObjectMovement.Velocity = normalizedLaunchDirection * launchSpeed;
+        } else {
+            Vector2 launchVelocity = normalizedLaunchDirection * launchSpeed;
+            Vector2 objectLaunchVelocity = launchedObjectMovement.Velocity;
+            objectLaunchVelocity.x += launchVelocity.x;
+            objectLaunchVelocity.y = launchVelocity.y;
+            launchedObjectMovement.Velocity = objectLaunchVelocity;
+        }
     }
 }

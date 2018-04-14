@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/Luke/Desktop/School or Intern Stuff/NM4209/Storyteller Builds/Playtest Builds/Storyteller Playtest v0.12/Storyteller.exe
+C:/Users/user/Desktop/NUS Stuff/NUS Year 3 Sem 2/NM4209/Storyteller Builds/Storyteller Playtest v1.04 [Low Graphics]/Storyteller.exe
 SceneListBegin?
 Assets/Storyteller.unity
 Assets/Chapter One.unity
@@ -40,6 +40,7 @@ d4bcb0964e9fd65eead7c3cbc27a70e2 Assembly-CSharp.dll:Fungus.Vector3Fields
 020f1894e6dc1821776ec1bf3bacd690 Assembly-CSharp.dll:.StorytellingIdea
 67a085132ec2c865fdc9fc0613db613a Assembly-CSharp.dll:Fungus.LoadScene
 b497cd6cb84c2199c071bc81e08e7906 Assembly-CSharp.dll:Fungus.Else
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EndingInspiration
 826755378fe639384e13690344ada0d6 Assembly-CSharp.dll:Fungus.Clickable2D
 9615eba53970846dceeea059cbd82c5d Assembly-CSharp.dll:Fungus.Vector3Normalise
 fae445a7a3d2d0d634ed75030dcbad77 Assembly-CSharp.dll:Fungus.SetActive
@@ -301,7 +302,7 @@ ab33636d6ab69a357f553ed12c5ccacc Assembly-CSharp.dll:.CFX_Demo_RotateCamera
 af979efbf670a695ecf468da1f77adec Assembly-CSharp.dll:Fungus.Call
 bb21ecf26db1f02f72231857956971b6 Assembly-CSharp.dll:Anima2D.SpriteMesh
 106a6eb2caee11ab6bed7e193e032e31 Assembly-CSharp.dll:Fungus.FadeScreen
-cd1b47b1363846cd83b08517100b26da Assembly-CSharp.dll:.StorytellingTree
+5e349bff64a21b59d2e65478f7320b3d Assembly-CSharp.dll:.StorytellingTree
 3fadf4557c9103bc8962ab0b3e2b83e7 Assembly-CSharp.dll:.MenuController
 dad1c1272dfe1898bb613dcb2631bcce Assembly-CSharp.dll:TMPro.Examples.Benchmark02
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LeanTween
@@ -496,7 +497,7 @@ bf4fed47f53a3e99c0fa4302a5825d1a Assembly-CSharp.dll:Fungus.ColorVariable
 a9b584424c1bd58fc35cf0db73a8a42e Assembly-CSharp.dll:Fungus.DragStarted
 2a4f09eef9245a7ee639fdfd7b461273 Assembly-CSharp.dll:Fungus.StopMotionRigidBody2D
 5a0297c2b694cd33b47095944e6ef994 Assembly-CSharp.dll:Fungus.MoveAdd
-c1f8ecef377c77fa888f93a70958a302 Assembly-CSharp.dll:.GameController
+8d3dccb4d71b569104688f3ef925ad6d Assembly-CSharp.dll:.GameController
 7263bf9af94f2727d754701060f1e6b9 Assembly-CSharp.dll:Fungus.Wait
 b55704e289e162e35c5af51baed4ea9c Assembly-CSharp.dll:Fungus.SetDraggable2D
 7341d506ee47bf5e6964e7e396dd2d47 Assembly-CSharp.dll:Fungus.FadeToView
@@ -531,4 +532,3 @@ a8e482df6d69222c2ca475ef90a9561e Assembly-CSharp.dll:.SkinnedMeshCombiner
 34e025057ef78b1bf238460cdf6583a3 Assembly-CSharp.dll:TMPro.Examples.ObjectSpin
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.SimpleScript
 fd160bb264b468cfb1957ebeb7c17190 Assembly-CSharp.dll:Fungus.MoveLean
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EndingInspiration

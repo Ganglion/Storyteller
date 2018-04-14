@@ -262,11 +262,20 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Editor.ReorderableList">
+      <HintPath>Assets/Fungus/Thirdparty/Reorderable List Field/Editor/Editor.ReorderableList.dll</HintPath>
+    </Reference>
     <Reference Include="JMOAssets">
       <HintPath>Assets/JMO Assets/Editor/JMOAssets.dll</HintPath>
     </Reference>
     <Reference Include="JMOAssets_CartoonFXFreeWelcome">
       <HintPath>Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-1.0.56-Editor">
+      <HintPath>Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-1.0.56-Runtime">
+      <HintPath>Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
@@ -367,11 +376,44 @@
     <None Include="Assets\Ferr\Common\Shaders\UnlitVertexColor.shader" />
     <None Include="Assets\Ferr\Common\Shaders\UnlitVertexColorTransparent.shader" />
     <None Include="Assets\Ferr\Docs\Ferr2DTerrainTool - Readme.txt" />
+    <None Include="Assets\Fungus\Docs\CHANGELOG.txt" />
+    <None Include="Assets\Fungus\Docs\LICENSE.txt" />
+    <None Include="Assets\Fungus\Docs\README.txt" />
+    <None Include="Assets\Fungus\Fonts\Amaranth\SIL Open Font License.txt" />
+    <None Include="Assets\Fungus\Fonts\Exo2\OFL.txt" />
+    <None Include="Assets\Fungus\Integrations\Playmaker\ReadMe.txt" />
+    <None Include="Assets\Fungus\Integrations\Spine\Readme.txt" />
+    <None Include="Assets\Fungus\Scripts\link.xml" />
+    <None Include="Assets\Fungus\Textures\Attribution.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Resources\Lua\fungus.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Resources\Lua\inspect.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Resources\Types\FungusTypes.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Resources\Types\UnityTypes.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Thirdparty\JSON\readme.txt" />
+    <None Include="Assets\Fungus\Thirdparty\LeanTween\ReadMe.txt" />
+    <None Include="Assets\Fungus\Thirdparty\Reorderable List Field\Editor\Editor.ReorderableList.xml" />
+    <None Include="Assets\Fungus\Thirdparty\Reorderable List Field\LICENSE.txt" />
+    <None Include="Assets\Fungus\Thirdparty\Reorderable List Field\README.txt" />
+    <None Include="Assets\FungusExamples\Attribution.txt" />
+    <None Include="Assets\FungusExamples\FungusLua\Localization\stringtable.txt" />
+    <None Include="Assets\FungusExamples\FungusLua\Narrative\Resources\Lua\junglestory.txt" />
+    <None Include="Assets\FungusExamples\FungusTown\Readme.txt" />
+    <None Include="Assets\FungusExamples\Sherlock\Readme.txt" />
+    <None Include="Assets\FungusExamples\TheFacility\Fonts\aleo\SIL Open Font License.txt" />
     <None Include="Assets\JMO Assets\!JMO Assets Readme.txt" />
     <None Include="Assets\JMO Assets\Cartoon FX Easy Editor\CartoonFX Easy Editor Readme.txt" />
     <None Include="Assets\JMO Assets\Cartoon FX\CartoonFX Free.txt" />
     <None Include="Assets\JMO Assets\Cartoon FX\Shaders\CFX3 Multiply Color.shader" />
     <None Include="Assets\JMO Assets\Cartoon FX\Shaders\CFXM_MobileParticleAdd_Alpha8.shader" />
+    <None Include="Assets\ParticleShadersVol1\README.txt" />
+    <None Include="Assets\ParticleShadersVol1\SampleSceneAssets\Materials\LightBulb.shader" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EMParticleFunctions.cginc" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EMParticleLighting.cginc" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EMParticleVariables.cginc" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EM_Particles_Lit.shader" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EM_Particles_Lit_Fallback.shader" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EM_Particles_Lit_MultiLight.shader" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EM_Particles_Unlit.shader" />
     <None Include="Assets\Plugins\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\Plugins\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\Plugins\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
@@ -413,6 +455,26 @@
     <None Include="Assets\Plugins\PostProcessing\Resources\Shaders\Uber.shader" />
     <None Include="Assets\Plugins\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\Plugins\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\NotoSans - License.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald Bold - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

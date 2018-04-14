@@ -28,6 +28,8 @@ public class GameController : Singleton<GameController> {
     private float baseShakeIntensity;
     [SerializeField]
     private float maxShakeIntensity;
+    [SerializeField]
+    private bool shakeScreen = true;
 
     [SerializeField]
     private float focusUseIncreaseRate;
@@ -88,6 +90,11 @@ public class GameController : Singleton<GameController> {
     private Vector3 targetPoint;
     private bool isHelping = false;
 
+    [Header("Pause")]
+    [SerializeField]
+    private GameObject pauseUI;
+    private bool isPaused = false;
+
     private void Awake() {
         focus = inspiration;
 
@@ -113,9 +120,23 @@ public class GameController : Singleton<GameController> {
 
     private void Update () {
 
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (isPaused) {
+                ResumeGame();
+            } else {
+                PauseGame();
+            }
+        }
+
+        if (isPaused) {
+            return;
+        }
+
+        // Cheatcode: Inspiration
         if (Input.GetKeyDown(KeyCode.I)) {
             inspiration += 20;
         }
+
 
         if (inspiration < inspirationThreshold) {
             ParticleSystem.EmissionModule firefliesEmission = firefliesPS.emission;
@@ -143,7 +164,9 @@ public class GameController : Singleton<GameController> {
             float percentCharge = Mathf.Clamp01(currentConversionTime / timeToReachMaxConversionSpeed);
             float currentConversionSpeed = baseConversionSpeed + (maxConversionSpeed - baseConversionSpeed) * percentCharge;
             float currentShakeIntensity = baseShakeIntensity + (maxShakeIntensity - baseShakeIntensity) * percentCharge;
-            CameraController.Instance.ShakeCamera(currentShakeIntensity, 0.05f);
+            if (shakeScreen) {
+                CameraController.Instance.ShakeCamera(currentShakeIntensity, 0.05f);
+            }
             float conversionAmount = Mathf.Min(currentConversionSpeed * Time.deltaTime, inspiration);
             inspiration -= conversionAmount;
             imagination += conversionAmount;
@@ -281,4 +304,17 @@ public class GameController : Singleton<GameController> {
         helpingPSEmission.enabled = false;
         isHelping = false;
     }
+
+    private void PauseGame() {
+        isPaused = true;
+        pauseUI.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame() {
+        isPaused = false;
+        pauseUI.SetActive(false);
+        Time.timeScale = 1;
+    }
+
 }

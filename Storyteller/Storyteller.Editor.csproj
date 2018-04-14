@@ -262,11 +262,20 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Editor.ReorderableList">
+      <HintPath>Assets/Fungus/Thirdparty/Reorderable List Field/Editor/Editor.ReorderableList.dll</HintPath>
+    </Reference>
     <Reference Include="JMOAssets">
       <HintPath>Assets/JMO Assets/Editor/JMOAssets.dll</HintPath>
     </Reference>
     <Reference Include="JMOAssets_CartoonFXFreeWelcome">
       <HintPath>Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-1.0.56-Editor">
+      <HintPath>Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-1.0.56-Runtime">
+      <HintPath>Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
@@ -467,7 +476,64 @@
     <Compile Include="Assets\Ferr\Path\Editor\Path2DPropertyDrawer.cs" />
     <Compile Include="Assets\Ferr\Path\Editor\PathEditorUtil.cs" />
     <Compile Include="Assets\Ferr\Path\Editor\PointControlPropertyDrawer.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\AssetModProcessor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\BlockEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\BlockInspector.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\CallEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\CameraMenuItems.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\CharacterEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\CommandEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\CommandListAdaptor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\ControlAudioEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\CustomGUI.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\DialogInputEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\EditorExtensions.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\EditorZoomArea.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\EnumFlagDrawer.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\EventHandlerEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\EventWindow.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\FlowchartEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\FlowchartMenuItems.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\FlowchartWindow.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\FungusEditorPreferences.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\FungusEditorResources.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\FungusEditorResourcesGenerated.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\HierarchyIcons.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\InvokeEventEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\InvokeMethodEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\LabelEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\LocalizationEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\MenuEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\MenuTimerEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\NarrativeMenuItems.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\PortraitEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SaveDataEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SaveMenuEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SaveMenuItems.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SavePointLoadedEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SayEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SerializedPropertyExtensions.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SetColliderEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SetVariableEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\SpriteMenuItems.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\StageEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\VariableConditionEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\VariableEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\VariableListAdaptor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\ViewEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\WriteEditor.cs" />
+    <Compile Include="Assets\Fungus\Scripts\Editor\WriterAudioEditor.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\FungusLua\Scripts\Editor\DropDownControl.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\FungusLua\Scripts\Editor\ExecuteHandlerEditor.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\FungusLua\Scripts\Editor\LuaBindingsEditor.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\FungusLua\Scripts\Editor\LuaScriptEditor.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\FungusLua\Scripts\Editor\LuaStoreEditor.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\FungusLua\Scripts\Editor\LuaUtilsEditor.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\FungusLua\Scripts\Editor\MenuItems.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\LineEndings\Editor\LineEndingsEditMenu.cs" />
+    <Compile Include="Assets\Fungus\Thirdparty\Usfxr\Editor\SfxrGenerator.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX Easy Editor\Editor\CFXEasyEditor.cs" />
+    <Compile Include="Assets\ParticleShadersVol1\Editor\EMMaterialInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Anima2D\Examples\Shaders\Unlit-Alpha-Cull-off.shader" />
@@ -504,11 +570,44 @@
     <None Include="Assets\Ferr\Common\Shaders\UnlitVertexColor.shader" />
     <None Include="Assets\Ferr\Common\Shaders\UnlitVertexColorTransparent.shader" />
     <None Include="Assets\Ferr\Docs\Ferr2DTerrainTool - Readme.txt" />
+    <None Include="Assets\Fungus\Docs\CHANGELOG.txt" />
+    <None Include="Assets\Fungus\Docs\LICENSE.txt" />
+    <None Include="Assets\Fungus\Docs\README.txt" />
+    <None Include="Assets\Fungus\Fonts\Amaranth\SIL Open Font License.txt" />
+    <None Include="Assets\Fungus\Fonts\Exo2\OFL.txt" />
+    <None Include="Assets\Fungus\Integrations\Playmaker\ReadMe.txt" />
+    <None Include="Assets\Fungus\Integrations\Spine\Readme.txt" />
+    <None Include="Assets\Fungus\Scripts\link.xml" />
+    <None Include="Assets\Fungus\Textures\Attribution.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Resources\Lua\fungus.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Resources\Lua\inspect.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Resources\Types\FungusTypes.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Resources\Types\UnityTypes.txt" />
+    <None Include="Assets\Fungus\Thirdparty\FungusLua\Thirdparty\JSON\readme.txt" />
+    <None Include="Assets\Fungus\Thirdparty\LeanTween\ReadMe.txt" />
+    <None Include="Assets\Fungus\Thirdparty\Reorderable List Field\Editor\Editor.ReorderableList.xml" />
+    <None Include="Assets\Fungus\Thirdparty\Reorderable List Field\LICENSE.txt" />
+    <None Include="Assets\Fungus\Thirdparty\Reorderable List Field\README.txt" />
+    <None Include="Assets\FungusExamples\Attribution.txt" />
+    <None Include="Assets\FungusExamples\FungusLua\Localization\stringtable.txt" />
+    <None Include="Assets\FungusExamples\FungusLua\Narrative\Resources\Lua\junglestory.txt" />
+    <None Include="Assets\FungusExamples\FungusTown\Readme.txt" />
+    <None Include="Assets\FungusExamples\Sherlock\Readme.txt" />
+    <None Include="Assets\FungusExamples\TheFacility\Fonts\aleo\SIL Open Font License.txt" />
     <None Include="Assets\JMO Assets\!JMO Assets Readme.txt" />
     <None Include="Assets\JMO Assets\Cartoon FX Easy Editor\CartoonFX Easy Editor Readme.txt" />
     <None Include="Assets\JMO Assets\Cartoon FX\CartoonFX Free.txt" />
     <None Include="Assets\JMO Assets\Cartoon FX\Shaders\CFX3 Multiply Color.shader" />
     <None Include="Assets\JMO Assets\Cartoon FX\Shaders\CFXM_MobileParticleAdd_Alpha8.shader" />
+    <None Include="Assets\ParticleShadersVol1\README.txt" />
+    <None Include="Assets\ParticleShadersVol1\SampleSceneAssets\Materials\LightBulb.shader" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EMParticleFunctions.cginc" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EMParticleLighting.cginc" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EMParticleVariables.cginc" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EM_Particles_Lit.shader" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EM_Particles_Lit_Fallback.shader" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EM_Particles_Lit_MultiLight.shader" />
+    <None Include="Assets\ParticleShadersVol1\Shaders\EM_Particles_Unlit.shader" />
     <None Include="Assets\Plugins\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\Plugins\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\Plugins\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
@@ -550,6 +649,26 @@
     <None Include="Assets\Plugins\PostProcessing\Resources\Shaders\Uber.shader" />
     <None Include="Assets\Plugins\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\Plugins\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\NotoSans - License.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald Bold - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
