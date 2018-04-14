@@ -97,6 +97,11 @@ public class StorytellingTree : MonoBehaviour {
 
     public void OpenTree() {
 
+        if (currentTier >= storytellingIdeas.Count) {
+            GameController.Instance.GainInspiration(100);
+            return;
+        }
+
         GameController.Instance.StopStorytellerMovement();
         isOpen = true;
 
@@ -108,24 +113,6 @@ public class StorytellingTree : MonoBehaviour {
         choosingInstructions.SetActive(true);
 
         currentTierStorytellingIdea.StartIdea();
-
-        /*for (int i = 0; i < storytellingIdeas.Count; i++) {
-            StorytellingIdea idea = storytellingIdeas[i].GetComponent<StorytellingIdea>();
-            if (idea.IdeaTier == currentTier) {
-                currentTierStorytellingIdeas.Add(idea);
-            }
-        }
-
-        if (currentTierStorytellingIdeas.Count > 0) {
-            currentTierStorytellingIdeas[0].transform.position = leftTransform.position;
-            currentTierStorytellingIdeas[1].transform.position = rightTransform.position;
-            cachedLeftEffect = currentTierStorytellingIdeas[0].GetComponent<ParticleSystem>();
-            cachedRightEffect = currentTierStorytellingIdeas[1].GetComponent<ParticleSystem>();
-        }
-
-        for (int i = 0; i < currentTierStorytellingIdeas.Count; i++) {
-            currentTierStorytellingIdeas[i].StartIdea();
-        }*/
     }
 
     public void CloseTree() {

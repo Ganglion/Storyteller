@@ -707,6 +707,7 @@
      <Compile Include="Assets\ParticleShadersVol1\SampleSceneAssets\Scripts\ExamplesController.cs" />
      <Compile Include="Assets\ParticleShadersVol1\SampleSceneAssets\Scripts\GetName.cs" />
      <Compile Include="Assets\ParticleShadersVol1\SampleSceneAssets\Scripts\LightRig.cs" />
+     <Compile Include="Assets\PauseMenuController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Climbable.cs" />
      <Compile Include="Assets\Scripts\FactoryActivatable.cs" />
