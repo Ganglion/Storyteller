@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.PostProcessing;
 
 public class GameController : Singleton<GameController> {
 
@@ -95,6 +96,10 @@ public class GameController : Singleton<GameController> {
     private GameObject pauseUI;
     private bool isPaused = false;
 
+    [Header("Quality")]
+    [SerializeField]
+    private PostProcessingBehaviour ppb;
+
     private void Awake() {
         focus = inspiration;
 
@@ -128,6 +133,10 @@ public class GameController : Singleton<GameController> {
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            ppb.enabled = !ppb.enabled;
+        }
+
         if (isPaused) {
             return;
         }
@@ -159,7 +168,7 @@ public class GameController : Singleton<GameController> {
 
         inspiration = Mathf.MoveTowards(inspiration, 0, inspirationDecrementRate * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.Space) && inspiration > 0) {
+        if (Input.GetKey(KeyCode.LeftShift) && inspiration > 0) {
             currentConversionTime += Time.deltaTime;
             float percentCharge = Mathf.Clamp01(currentConversionTime / timeToReachMaxConversionSpeed);
             float currentConversionSpeed = baseConversionSpeed + (maxConversionSpeed - baseConversionSpeed) * percentCharge;
@@ -175,7 +184,7 @@ public class GameController : Singleton<GameController> {
             currentConversionTime = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
 
             ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
             imaginingEmission.enabled = true;
@@ -188,7 +197,7 @@ public class GameController : Singleton<GameController> {
             ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
             imaginationSuperEmission.enabled = true;
 
-        } else if (Input.GetKeyUp(KeyCode.Space)) {
+        } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
 
             ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
             imaginingEmission.enabled = false;
@@ -218,14 +227,14 @@ public class GameController : Singleton<GameController> {
 
         float braveryToUse = currentFocusUseRate * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && focus >= braveryToUse && !hasFocused && currentFocusCooldown <= 0) {
+        if (Input.GetKeyDown(KeyCode.Space) && focus >= braveryToUse && !hasFocused && currentFocusCooldown <= 0) {
             isFocusing = true;
             currentFocusUseRate = focusMinUseValue;
             storytellerMovement.StartGliding();
             ParticleSystem.EmissionModule focusLeapEmission = storytellerFocusPS.emission;
             focusLeapEmission.enabled = true;
 
-        } else if (isFocusing && (focus < braveryToUse || Input.GetKeyUp(KeyCode.LeftShift))) {
+        } else if (isFocusing && (focus < braveryToUse || Input.GetKeyUp(KeyCode.Space))) {
             isFocusing = false;
             storytellerMovement.StopGliding();
             //if (storytellerFocusPS.isEmitting) {

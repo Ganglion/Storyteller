@@ -76,8 +76,9 @@ public class ObjectMovement : MonoBehaviour {
 
         initialGravityScale = gravityScale;
 
+        /*
         ParticleSystem.EmissionModule inspirationLeapEmission = inspirationLeapPS.emission;
-        inspirationLeapEmission.enabled = false;
+        inspirationLeapEmission.enabled = false;*/
     }
 
     private void Update() {
@@ -124,6 +125,7 @@ public class ObjectMovement : MonoBehaviour {
                 isGrounded = false;
             }
 
+            /*
             if (Input.GetKeyDown(KeyCode.LeftShift)) {
                 ParticleSystem.EmissionModule focusLeapEmission = inspirationLeapPS.emission;
                 focusLeapEmission.enabled = true;
@@ -134,7 +136,7 @@ public class ObjectMovement : MonoBehaviour {
                     focusLeapEmission.enabled = false;
                 }
                 //gravityMultiplier *= 2f;
-            }
+            }*/
         }
 
         if (isGrounded) {

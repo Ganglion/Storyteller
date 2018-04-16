@@ -1,6 +1,6 @@
-WindowsStandalone
+OSXStandalone
 PlayerPath?
-C:/Users/Luke/Desktop/School or Intern Stuff/NM4209/Storyteller Builds/Playtest Builds/Storyteller Almost Final v0.1/Storyteller.exe
+C:/Users/Luke/Desktop/School or Intern Stuff/NM4209/Storyteller Builds/Playtest Builds/Storyteller Almost Final v0.12/Mac.app
 SceneListBegin?
 Assets/Storyteller.unity
 Assets/Chapter One.unity
@@ -186,6 +186,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 a82cd5d9080954546599555f26ac548d Assembly-CSharp.dll:Fungus.Vector3ToVector2
 dc9cf8260c6e08a09200ac6ed4cb9f68 Assembly-CSharp.dll:Fungus.View
 a088df77dc5c3608d027e8891db421bf Assembly-CSharp.dll:Fungus.FadeUI
+d5286c7485f4dc4c01a653f732f81fdb Assembly-CSharp.dll:.TagSetter
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 2116ce0c9bbe0018bf219d0d8896533f Assembly-CSharp.dll:Fungus.SetAnimTrigger
 c57a56bf07ca7d2afd1842c355294ac1 Assembly-CSharp.dll:Fungus.ShakePosition
@@ -498,7 +499,7 @@ bf4fed47f53a3e99c0fa4302a5825d1a Assembly-CSharp.dll:Fungus.ColorVariable
 a9b584424c1bd58fc35cf0db73a8a42e Assembly-CSharp.dll:Fungus.DragStarted
 2a4f09eef9245a7ee639fdfd7b461273 Assembly-CSharp.dll:Fungus.StopMotionRigidBody2D
 5a0297c2b694cd33b47095944e6ef994 Assembly-CSharp.dll:Fungus.MoveAdd
-7af72e2553e542fa321559ec41af441d Assembly-CSharp.dll:.GameController
+35bc2c636e59fc7d23457a94685c4251 Assembly-CSharp.dll:.GameController
 7263bf9af94f2727d754701060f1e6b9 Assembly-CSharp.dll:Fungus.Wait
 b55704e289e162e35c5af51baed4ea9c Assembly-CSharp.dll:Fungus.SetDraggable2D
 7341d506ee47bf5e6964e7e396dd2d47 Assembly-CSharp.dll:Fungus.FadeToView
