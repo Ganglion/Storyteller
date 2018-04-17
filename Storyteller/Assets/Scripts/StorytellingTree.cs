@@ -29,7 +29,7 @@ public class StorytellingTree : MonoBehaviour {
     private bool isOpen = false;
     public bool IsOpen { get { return isOpen; } }
     [SerializeField]
-    private GameObject choosingInstructions;
+    //private GameObject choosingInstructions;
 
     private void Awake() {
         shiftRate = targetShiftScale / timeToReachFullShift;
@@ -110,7 +110,7 @@ public class StorytellingTree : MonoBehaviour {
         currentTierStorytellingIdea = storytellingIdeas[currentTier];
         currentTierStorytellingIdea.transform.position = ideaTransform.position;
 
-        choosingInstructions.SetActive(true);
+        //choosingInstructions.SetActive(true);
 
         currentTierStorytellingIdea.StartIdea();
     }
@@ -137,7 +137,7 @@ public class StorytellingTree : MonoBehaviour {
 
         fillBarScaler.localScale = new Vector3(0, 1, 1);
 
-        choosingInstructions.SetActive(false);
+        //choosingInstructions.SetActive(false);
 
         isOpen = false;
         GameController.Instance.StartStorytellerMovement();

@@ -168,7 +168,7 @@ public class GameController : Singleton<GameController> {
 
         inspiration = Mathf.MoveTowards(inspiration, 0, inspirationDecrementRate * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift) && inspiration > 0) {
+        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && inspiration > 0) {
             currentConversionTime += Time.deltaTime;
             float percentCharge = Mathf.Clamp01(currentConversionTime / timeToReachMaxConversionSpeed);
             float currentConversionSpeed = baseConversionSpeed + (maxConversionSpeed - baseConversionSpeed) * percentCharge;
@@ -184,7 +184,7 @@ public class GameController : Singleton<GameController> {
             currentConversionTime = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))) {
 
             ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
             imaginingEmission.enabled = true;
@@ -197,7 +197,7 @@ public class GameController : Singleton<GameController> {
             ParticleSystem.EmissionModule imaginationSuperEmission = imaginationSuperPS.emission;
             imaginationSuperEmission.enabled = true;
 
-        } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
+        } else if ((Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))) {
 
             ParticleSystem.EmissionModule imaginingEmission = storytellerImaginingPS.emission;
             imaginingEmission.enabled = false;

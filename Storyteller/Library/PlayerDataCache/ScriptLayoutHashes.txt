@@ -1,6 +1,6 @@
-OSXStandalone
+WindowsStandalone
 PlayerPath?
-C:/Users/Luke/Desktop/School or Intern Stuff/NM4209/Storyteller Builds/Playtest Builds/Storyteller Almost Final v0.12/Mac.app
+C:/Users/Luke/Desktop/School or Intern Stuff/NM4209/Storyteller Builds/Playtest Builds/Storyteller Final Candidate 1/Storyteller.exe
 SceneListBegin?
 Assets/Storyteller.unity
 Assets/Chapter One.unity
@@ -162,7 +162,6 @@ b2a13d54da2efcf1551bf9fc0a62c1cd Assembly-CSharp.dll:Fungus.PlayAnimState
 d24c75a72062b1df3f05d6730d4a0a44 Assembly-CSharp.dll:Fungus.InfoText
 2cf26a4fb841e8541f2cfceb94484a8f Assembly-CSharp.dll:Fungus.Comment
 b497cd6cb84c2199c071bc81e08e7906 Assembly-CSharp.dll:Fungus.End
-df2ac44d55e8622ab328e8580f4621fa Assembly-CSharp.dll:.CustomScript
 e792e82568cc973dc2a4625bc6b410b2 Assembly-CSharp.dll:Fungus.SendMessage
 3f7b40b9dec82f7b3bef20c7dbdfcb1c Assembly-CSharp.dll:.CFX_AutoStopLoopedEffect
 73ebbaf5159e8d943e64801af16fc450 Assembly-CSharp.dll:Fungus.AnimatorVariable
@@ -303,7 +302,7 @@ ab33636d6ab69a357f553ed12c5ccacc Assembly-CSharp.dll:.CFX_Demo_RotateCamera
 af979efbf670a695ecf468da1f77adec Assembly-CSharp.dll:Fungus.Call
 bb21ecf26db1f02f72231857956971b6 Assembly-CSharp.dll:Anima2D.SpriteMesh
 106a6eb2caee11ab6bed7e193e032e31 Assembly-CSharp.dll:Fungus.FadeScreen
-5e349bff64a21b59d2e65478f7320b3d Assembly-CSharp.dll:.StorytellingTree
+cd1b47b1363846cd83b08517100b26da Assembly-CSharp.dll:.StorytellingTree
 6ed48007311a4e72f5ffc0e1b1b5bdc7 Assembly-CSharp.dll:.MenuController
 dad1c1272dfe1898bb613dcb2631bcce Assembly-CSharp.dll:TMPro.Examples.Benchmark02
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LeanTween
@@ -334,7 +333,6 @@ a8ed45ab553b07236625df6cc6ac449c TextMeshPro-2017.3-1.0.56-Editor.dll:TMPro.Edit
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 8604de0f5beed95d79a3f24818973b37 Assembly-CSharp.dll:.CFX_AutoDestructShuriken
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.TeleType
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Fungus.Examples.SpriteColorChangeFromFungusMouseEvent
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CharacterMotion
 0af48a890577dc5af96a7c7b0f2553a9 Assembly-CSharp.dll:Fungus.Destroy
 542530e11789dc403468901628b3f4a8 Assembly-CSharp.dll:Anima2D.Bone2D
